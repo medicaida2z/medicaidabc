@@ -1,0 +1,568 @@
+When a downloaded file says "Removed" or disappears right after downloading, Windows Security (SmartScreen) or your antivirus blocked it automatically—which happens frequently when downloading raw .html files on Windows.
+Instead of fighting with downloaded files at all, use Cloudflare Pages' built-in GitHub paste method (zero downloads, zero folders, zero antivirus blocks):
+
+How to Put Your Site Live Without Downloading Any File
+
+1. Copy the code from the box below (click the Copy icon at the top-right corner of the code block).
+2. Open github.com (create a free account or sign in) and click + > New repository.
+3. Name it medicaidabc, leave it Public, and click Create repository.
+4. Click the link "creating a new file" on the next screen.
+5. Type index.html in the filename box at the top, click inside the big editor box below it, press Ctrl + V to paste your code, and click Commit changes... (twice).
+6. Go to Cloudflare Pages → Create application > Pages > Connect to Git, pick your medicaidabc repository, and click Save and Deploy.
+Your site will go live immediately—and anytime you want to edit a word or price later, you can edit index.html right inside GitHub and Cloudflare updates your live site automatically in 15 seconds.
+
+Complete Code (index.html with Formspree xljjyezp)
+
+html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help</title>
+  <meta name="description" content="A clearer starting point for Pennsylvania long-term care Medicaid applications. A free online assessment, optional $100 attorney chat and a proposed $5,000 application package.">
+  <meta name="robots" content="noindex,nofollow">
+  <style>
+    :root{--navy:#142f38;--muted:#53656a;--orange:#dc5432;--paper:#faf8f2;--line:#d8dedb;--mint:#e9f0e9}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:24px}
+    body{margin:0;background:var(--paper);color:var(--navy);font:17px/1.6 Arial,Helvetica,sans-serif}
+    a{color:inherit}
+    button,input,select{font:inherit}
+    button,a{touch-action:manipulation}
+    button{cursor:pointer}
+    .wrap{max-width:1160px;margin:auto;padding:0 32px}
+    .preview{background:var(--navy);color:white;text-align:center;padding:7px 18px;font-size:12px;letter-spacing:.3px}
+    header{display:flex;align-items:center;justify-content:space-between;min-height:100px;border-bottom:1px solid var(--line);gap:20px}
+    .brand{text-decoration:none;font-size:28px;font-weight:800;letter-spacing:-1.2px}
+    .brand span{color:var(--orange)}
+    nav{display:flex;gap:28px;font-size:14px;font-weight:bold}
+    nav a{text-decoration:none}
+    nav a:hover{text-decoration:underline}
+    .eyebrow{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;font-weight:800}
+    .orange{color:var(--orange)}
+    .hero{display:grid;grid-template-columns:1.35fr .8fr;gap:70px;padding:65px 0 52px;align-items:center}
+    h1{font:normal clamp(42px,4.6vw,62px)/1.08 Georgia,serif;letter-spacing:-2px;margin:20px 0 24px;max-width:660px}
+    h1 em{color:var(--orange);font-style:normal}
+    .lead{color:var(--muted);font-size:19px;max-width:580px;margin:0 0 27px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:12px;background:var(--orange);color:white;border:1px solid var(--orange);padding:15px 22px;border-radius:6px;font-weight:700;text-decoration:none;line-height:1.4;transition:background .15s}
+    .btn:hover{background:#bc4325}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+    .btn.secondary{background:transparent;color:var(--navy);border-color:var(--line)}
+    .btn.secondary:hover{background:var(--mint)}
+    .small{font-size:13px;color:var(--muted)}
+    .hero-note{margin:12px 0 0}
+    .start-card{padding:32px;border:1px solid var(--navy);border-radius:12px;background:#fff;box-shadow:8px 8px 0 #e4eadd}
+    .start-card h2{font:normal 27px/1.2 Georgia,serif;letter-spacing:-.5px;margin:13px 0}
+    .price{font-size:62px;letter-spacing:-3px;font-weight:800;line-height:1.1;margin:22px 0 8px}
+    .price span{font-size:16px;letter-spacing:0;font-weight:normal;color:var(--muted)}
+    .start-card ul{padding-left:19px;font-size:15px;color:var(--muted);margin:20px 0}
+    .start-card li{margin:7px 0}
+    .start-card .btn{width:100%}
+    .credit{padding-top:15px;border-top:1px solid var(--line);margin-top:20px;font-size:13px;color:var(--muted)}
+    .ribbon{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:21px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:14px}
+    .ribbon strong{margin-right:6px}
+    .section{padding:65px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:35px;margin-bottom:30px}
+    .section-head p{max-width:380px;color:var(--muted);margin:0}
+    h2{font:normal clamp(31px,3.2vw,42px)/1.16 Georgia,serif;letter-spacing:-1px;margin:12px 0}
+    h3{font-size:20px;line-height:1.35;margin:12px 0}
+    .wizard{border:1px solid var(--line);background:white;border-radius:12px;overflow:hidden}
+    .wizard-top{display:flex;justify-content:space-between;align-items:center;background:#f0f3ed;padding:18px 28px;font-size:13px}
+    .progress{display:flex;gap:6px}
+    .progress i{width:32px;height:4px;border-radius:4px;background:#c9d1cb;transition:background .2s}
+    .progress i.on{background:var(--orange)}
+    .pane{padding:30px}
+    .pane h3{font:normal 28px/1.25 Georgia,serif;margin:0 0 7px}
+    .pane>p{margin:0 0 25px;color:var(--muted)}
+    .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .choice{padding:22px;text-align:left;border:1px solid var(--line);border-radius:8px;background:white;color:var(--navy);position:relative;transition:border-color .15s,background .15s}
+    .choice:hover{border-color:var(--orange);background:#fff8f3}
+    .choice b{display:block;font-size:18px;margin-bottom:10px}
+    .choice span{display:block;font-size:14px;color:var(--muted)}
+    .choice .arrow{font-size:23px;color:var(--orange);margin-top:20px}
+    .back{border:0;background:none;color:var(--muted);padding:0;text-decoration:underline;margin-bottom:22px;font-size:14px}
+    .back:hover{color:var(--navy)}
+    .result{background:var(--mint);border-radius:8px;padding:28px}
+    .result h3{margin-top:6px}
+    .result p{max-width:780px}
+    .result dl{display:flex;gap:35px;flex-wrap:wrap;font-size:14px;border-top:1px solid #ccd5cb;padding-top:15px;margin-top:18px}
+    .result dt{color:var(--muted)}
+    .result dd{margin:4px 0 0;font-weight:bold}
+    .result-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .checklist-review{background:white;border:1px solid #ccd5cb;border-radius:8px;padding:20px;margin-top:20px}
+    .checklist-review h4{margin:0 0 10px;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+    .checklist-review ul{margin:0;padding-left:20px;font-size:15px}
+    .checklist-review li{margin:6px 0}
+    .consent-row{display:flex;align-items:start;gap:10px;margin:18px 0;font-size:14px;color:var(--navy)}
+    .consent-row input{margin-top:4px;width:16px;height:16px;accent-color:var(--orange)}
+    .three{display:grid;grid-template-columns:repeat(3,1fr);gap:35px}
+    .step{border-top:2px solid var(--navy);padding-top:18px}
+    .step .number{font:normal 31px Georgia,serif;color:var(--orange)}
+    .step p{color:var(--muted);font-size:15px}
+    .package{display:grid;grid-template-columns:1fr 1.1fr;gap:70px;background:var(--navy);color:white;padding:42px;border-radius:12px}
+    .package .price{font-size:58px;margin:20px 0}
+    .package p{color:#cbd7d8;font-size:15px}
+    .package ul{padding:0;list-style:none;margin:0}
+    .package li{padding:12px 0;border-bottom:1px solid #ffffff24;font-size:16px}
+    .package li:before{content:'✓';color:#d3e6c1;margin-right:13px}
+    .package .exclusions{font-size:13px;margin-top:20px;color:#aebfc1}
+    .demo-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:65px;align-items:center}
+    .demo-grid p{color:var(--muted)}
+    .demo{border:1px solid var(--line);background:white;border-radius:12px;overflow:hidden;box-shadow:0 12px 35px #142f3808}
+    .demo-head{background:#f0f3ed;padding:19px 24px;display:flex;align-items:center;justify-content:space-between;font-size:14px}
+    .badge{font-size:11px;font-weight:bold;letter-spacing:.5px;padding:4px 9px;border:1px solid #bbc7bc;border-radius:30px;background:white}
+    .tabs{display:flex;border-bottom:1px solid var(--line);padding:0 24px;gap:25px;overflow-x:auto}
+    .tabs button{border:0;border-bottom:3px solid transparent;background:transparent;color:var(--muted);font-size:14px;padding:17px 0;white-space:nowrap}
+    .tabs button[aria-selected=true]{border-color:var(--orange);color:var(--navy);font-weight:bold}
+    .demo-body{padding:24px}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid #edf0ec;font-size:14px}
+    .row:last-child{border-bottom:0}
+    .status{color:#2f633c;font-size:12px;font-weight:bold;white-space:nowrap}
+    .status.pending{color:#9b5725}
+    .next{border-left:3px solid var(--orange);padding-left:16px;margin:14px 0}
+    .next strong{display:block}
+    .next p{font-size:14px;margin:6px 0}
+    .faq{max-width:850px;margin:0 auto}
+    .faq h2{margin-bottom:25px}
+    details{border-top:1px solid var(--line);padding:19px 0}
+    details:last-child{border-bottom:1px solid var(--line)}
+    summary{font-weight:bold;cursor:pointer;list-style-position:outside;margin-left:18px}
+    details p{color:var(--muted);font-size:15px;margin:14px 0 0 18px}
+    .last{background:var(--mint);padding:35px;display:flex;align-items:center;justify-content:space-between;gap:25px;border-radius:10px;margin:45px 0}
+    .last h2{font-size:30px;margin:0 0 8px}
+    .last p{margin:0;color:var(--muted);font-size:15px}
+    footer{padding:30px 0 38px;display:flex;gap:50px;justify-content:space-between}
+    footer p{font-size:12px;color:var(--muted);max-width:680px;margin:0}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(20,47,56,.65);display:flex;align-items:center;justify-content:center;padding:20px;z-index:100}
+    .modal{background:white;border-radius:12px;max-width:480px;width:100%;padding:32px;border:1px solid var(--navy);box-shadow:0 20px 50px rgba(0,0,0,.2)}
+    .modal-top{display:flex;justify-content:space-between;align-items:start;gap:16px}
+    .modal h3{font:normal 26px/1.2 Georgia,serif;margin:6px 0 12px}
+    .close-btn{background:none;border:0;font-size:24px;line-height:1;color:var(--muted);padding:4px}
+    .field{margin:14px 0}
+    .field label{display:block;font-size:13px;font-weight:bold;margin-bottom:6px}
+    .field input,.field select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+    .confirm-box{background:var(--mint);padding:18px;border-radius:8px;margin-top:16px;font-size:14px}
+    .warn-box{background:#fff8f3;border:1px solid var(--orange);padding:12px 14px;border-radius:6px;font-size:13px;color:var(--navy);margin:14px 0}
+Use code with caution.
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+[hidden]{display:none!important}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:760px){
+.wrap{padding:0 22px}
+header{min-height:82px}
+.brand{font-size:25px}
+nav{gap:16px;font-size:12px}
+nav a:first-child{display:none}
+.hero{grid-template-columns:1fr;gap:30px;padding:38px 0}
+h1{font-size:42px;letter-spacing:-1.5px}
+.lead{font-size:17px}
+.start-card{padding:25px;box-shadow:5px 5px 0 #e4eadd}
+.ribbon{gap:9px;display:grid}
+.section{padding:42px 0}
+.section-head{display:block}
+.section-head p{max-width:none;margin-top:15px}
+.choices,.three,.package,.demo-grid{grid-template-columns:1fr}
+.package{gap:35px;padding:28px}
+.demo-grid{gap:32px}
+.choices{gap:10px}
+.choice{padding:18px 48px 18px 18px}
+.choice .arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);margin:0}
+.last,footer{flex-direction:column;align-items:start;gap:20px}
+}
+
+
+PRIVATE PREVIEW (v8) • Proposed Pennsylvania Long-Term Care Medicaid Service
+MedicaidABC
+
+Free Assessment
+Three Ways to Start
+$5,000 Package
+FAQ
+
+Pennsylvania Long-Term Care Medicaid
+A clearer starting point for Pennsylvania Medicaid applications.
+Build your document checklist free online, request a no-cost checklist assessment, or book an optional 15-minute attorney chat before committing to a full filing.
+
+Start Free Assessment →
+Get Free DIY Checklist
+
+Not affiliated with Pennsylvania Medicaid or PA DHS. Do not enter SSNs or account numbers.
+03 • Optional Attorney Chat
+15-Minute PA Medicaid Attorney Chat
+$100 flat fee
+
+Discuss your Pennsylvania long-term care timeline and questions
+Review potential 5-year look-back or spousal protection issues
+Decide whether DIY or full representation makes sense
+
+About the Attorney Chat →
+100% Credited: If you hire us for the proposed $5,000 application package, your $100 fee is credited in full.
+
+01 • Do It Yourself Free PA document checklist
+02 • Free Assessment Online checklist & review
+03 • Attorney Chat $100 / 15 min (credited toward $5,000 package)
+
+02 • Free Assessment
+Build your Pennsylvania assessment checklist.
+
+Answer three quick questions to generate your tailored document list, save a copy, or send it to MedicaidABC for review.
+Step 1 of 3 • Care Situation
+
+
+
+
+
+
+
+
+Three Ways to Use MedicaidABC
+Start free. Pay only if you want legal help.
+
+Whether you plan to file on your own or want hands-on legal representation in Pennsylvania, you can start without pressure.
+01
+Do It Yourself (Free)
+Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.
+Send checklist request
+
+
+02
+Free Assessment
+Complete the 3-step assessment above, review your completed checklist, save a summary, and optionally send it to us for initial review.
+Build my checklist
+
+
+03
+Attorney Chat ($100)
+Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.
+Request attorney chat
+
+
+Proposed Full-Service Option
+Pennsylvania Application Package
+$5,000 proposed flat fee
+Full preparation and submission of your Pennsylvania long-term care Medicaid application, including 60-month financial verification and County Assistance Office follow-up.
+
+Inquire About Full Package
+
+*Any $100 attorney chat fee paid first is credited toward the $5,000 package. Excludes contested guardianship proceedings, court litigation, or third-party appraisal fees.
+Included Scope
+
+60-month (5-year) bank, brokerage, and life insurance audit
+Spousal Impoverishment resource and income allowance calculations
+Preparation & filing of PA 600-L / COMPASS long-term care application
+Written explanation packet for flagged transfers or reimbursements
+Direct communication with the PA County Assistance Office (CAO)
+Shared case tracker showing document status and next steps
+
+
+
+Sample Client Tracker
+See how your application stays organized.
+Click between Documents, Progress, and Next step to preview how families track every Pennsylvania Medicaid requirement in one place.
+Illustrative example only • Not an active client record.
+Sample Case • Pennsylvania LTC
+PREVIEW
+Documents
+Progress
+Next step
+Questions & Disclosures
+Frequently Asked Questions
+Is booking open right now?
+This page is a preview of a proposed service. You can submit your DIY checklist request, send your completed assessment checklist, or express interest in the $100 / 15-minute attorney chat through our Formspree intake forms on this page.
+What information should I avoid entering in the forms?
+Do not include Social Security numbers, bank or investment account numbers, Medicare IDs, or sensitive medical records in any online form on this website.
+How does the $100 attorney chat credit work?
+If you complete a 15-minute ($100) attorney chat and later engage our firm for the proposed $5,000 Pennsylvania Medicaid application package, 100% of your $100 payment is credited toward the $5,000 fee.
+Are you affiliated with Pennsylvania Medicaid or the Department of Human Services?
+No. MedicaidABC is an independent informational and legal-service preview and is not affiliated with, endorsed by, or part of Pennsylvania Medicaid, the Pennsylvania Department of Human Services (DHS), or any government agency.
+
+Start with your free Pennsylvania checklist.
+Build your custom assessment above or request the DIY checklist in seconds.
+
+Start Free Assessment →
+
+MedicaidABC
+Pennsylvania Long-Term Care Medicaid Help
+
+Disclaimer: Not affiliated with Pennsylvania Medicaid or PA DHS. Information on this site is general educational information and not legal advice. Submitting a checklist or inquiry does not create an attorney-client relationship. Do not include account numbers or Social Security numbers.
+
+MedicaidABC Intake
+Send checklist request
+
+×
+
+Sent securely via Formspree to MedicaidABC. Do not include SSNs or account numbers.
+Your Name
+Email Address
+Pennsylvania County (Optional)
+I understand this is a preview service, does not create an attorney-client relationship, and contains no SSNs or account numbers.
+Send checklist request →
+const MEDICAIDABC_CONFIG = {
+formspreeId: "xljjyezp"
+};
+function getFormspreeUrl() {
+const id = (MEDICAIDABC_CONFIG.formspreeId || "").trim();
+if (!id) return "";
+return id.startsWith("http") ? id : https://formspree.io{id};
+}
+async function submitToFormspree(payload) {
+const url = getFormspreeUrl();
+if (!url) {
+return { ok: true, demo: true };
+}
+const res = await fetch(url, {
+method: "POST",
+headers: { "Content-Type": "application/json", "Accept": "application/json" },
+body: JSON.stringify(payload)
+});
+return { ok: res.ok, demo: false };
+}
+// --- 1. INTERACTIVE 3-STEP ASSESSMENT WIZARD ---
+const steps = [
+{
+key: "care",
+label: "Care Situation",
+title: "Where is the applicant currently receiving care?",
+subtitle: "Pennsylvania long-term care rules depend on whether care is in a skilled nursing facility or at home.",
+options: [
+{ value: "Nursing Facility", title: "Skilled Nursing Facility", desc: "Currently in a nursing home or transitioning from hospital/rehab." },
+{ value: "Home / Waiver", title: "At Home / Community Waiver", desc: "Needs daily help at home through PA Community HealthChoices." },
+{ value: "Planning Ahead", title: "Planning Ahead", desc: "No immediate facility admission, preparing documents early." }
+]
+},
+{
+key: "marital",
+label: "Marital Status",
+title: "What is the applicant's marital status?",
+subtitle: "Different Pennsylvania asset and income allowances apply when a spouse remains at home.",
+options: [
+{ value: "Single / Widowed", title: "Single / Widowed", desc: "Individual applicant without a living spouse." },
+{ value: "Married (One Spouse Needs Care)", title: "Married (One Needs Care)", desc: "Healthy spouse remains in the community (CSRA rules apply)." },
+{ value: "Married (Both Need Care)", title: "Married (Both Need Care)", desc: "Both spouses require long-term care services." }
+]
+},
+{
+key: "assets",
+label: "Countable Resources",
+title: "Approximate countable assets (excluding primary home)?",
+subtitle: "Do not enter exact balances or account numbers—select a general range.",
+options: [
+{ value: "Under $15,000", title: "Under $15,000", desc: "Near PA individual resource limits; priority is 60-month statement audit." },
+{ value: "$15,000 – $150,000", title: "$15,000 – $150,000", desc: "Spousal allowance or compliant spend-down planning may apply." },
+{ value: "Over $150,000", title: "Over $150,000", desc: "Attorney review recommended before spending down savings." }
+]
+}
+];
+let currentStep = 0;
+let reviewOpen = false;
+const answers = {};
+const pane = document.getElementById("wizard-pane");
+const stepLabel = document.getElementById("wizard-step-label");
+function buildChecklistItems() {
+const items = [
+"Photo ID, Medicare card, and Social Security award letter",
+"60 months (5 years) of checking, savings, and money market statements",
+"Current statements for any IRAs, 401(k)s, annuities, or brokerage accounts",
+"Life insurance policies showing face value and cash surrender value",
+"Deed and current property tax bill for any Pennsylvania real estate",
+"Pre-paid funeral or burial contract documentation (if applicable)"
+];
+if (answers.marital && answers.marital.startsWith("Married")) {
+items.push("Marriage certificate and spouse's monthly income & shelter expense records (for PA CSRA/MMMNA calculation)");
+}
+if (answers.care === "Nursing Facility") {
+items.push("Nursing facility admission agreement and current monthly private-pay billing statement");
+}
+return items;
+}
+function renderWizard() {
+for (let i = 1; i <= 3; i++) {
+document.getElementById("prog-" + i).classList.toggle("on", i <= currentStep + 1);
+}
+if (currentStep < steps.length) {
+const s = steps[currentStep];
+stepLabel.innerHTML = <strong>Step ${currentStep + 1} of 3</strong> &bull; ${s.label};
+let html = "";
+if (currentStep > 0) {
+html += <button type="button" class="back" id="wizard-back">&larr; Back</button>;
+}
+html += <h3>${s.title}</h3><p>${s.subtitle}</p><div class="choices">;
+s.options.forEach(opt => {
+html +=  <button type="button" class="choice" data-val="${opt.value}"> <b>${opt.title}</b> <span>${opt.desc}</span> <div class="arrow">&rarr;</div> </button>;
+});
+html += </div>;
+pane.innerHTML = html;
+if (currentStep > 0) {
+document.getElementById("wizard-back").addEventListener("click", () => {
+currentStep--;
+renderWizard();
+});
+}
+pane.querySelectorAll(".choice").forEach(btn => {
+btn.addEventListener("click", () => {
+answers[s.key] = btn.dataset.val;
+currentStep++;
+reviewOpen = false;
+renderWizard();
+});
+});
+} else {
+renderResult();
+}
+}
+function renderResult() {
+stepLabel.innerHTML = <strong>Assessment Complete</strong> &bull; Pennsylvania Checklist Ready;
+const items = buildChecklistItems();
+pane.innerHTML = `
+← Edit answers
+
+Your Pennsylvania Summary
+${answers.marital === "Married (One Spouse Needs Care)" ? "Spousal Impoverishment protections likely apply to your household." : "Your 60-month Pennsylvania document checklist is ready."}
+${answers.assets === "Over $150,000" ? "Because countable resources exceed $150,000, consider a $100 / 15-minute attorney chat before paying nursing home bills out of pocket." : "Gather the documents below first—having clean 60-month statements avoids County Assistance Office delays."}
+
+Care Setting${answers.care}
+Household${answers.marital}
+Countable Range${answers.assets}
+${reviewOpen ? "Hide checklist" : "Review my checklist \u2197"}
+Save summary (.txt)
+About the attorney chat
+<div class="checklist-review" id="review-box" ${reviewOpen ? "" : "hidden"}>
+Your Completed Assessment Checklist
+${items.map(i => <li>${i}</li>).join("")}
+Your Email (to receive a copy & optional assessment)
+I agree to send this checklist summary through Formspree to MedicaidABC (no SSNs or account numbers included).
+Send checklist for assessment →
+
+
+
+
+`;
+document.getElementById("edit-answers").addEventListener("click", () => {
+currentStep = 0;
+renderWizard();
+});
+document.getElementById("toggle-review").addEventListener("click", () => {
+reviewOpen = !reviewOpen;
+renderResult();
+});
+document.getElementById("save-summary").addEventListener("click", () => {
+const text = [
+"MEDICAIDABC - PENNSYLVANIA ASSESSMENT SUMMARY",
+"----------------------------------------------",
+Care Situation: ${answers.care},
+Marital Status: ${answers.marital},
+Countable Assets: ${answers.assets},
+"",
+"PRIORITY CHECKLIST:",
+...items.map((item, idx) => ${idx + 1}. ${item}),
+"",
+"Note: Educational summary only. Not affiliated with PA Medicaid or PA DHS."
+].join("\n");
+const blob = new Blob([text], { type: "text/plain" });
+const url = URL.createObjectURL(blob);
+const a = document.createElement("a");
+a.href = url;
+a.download = "medicaidabc-pa-checklist.txt";
+a.click();
+URL.revokeObjectURL(url);
+});
+const consentBox = document.getElementById("a-consent");
+const sendBtn = document.getElementById("send-assessment-btn");
+consentBox.addEventListener("change", () => {
+sendBtn.disabled = !consentBox.checked;
+});
+document.getElementById("assessment-send-form").addEventListener("submit", async (e) => {
+e.preventDefault();
+const statusEl = document.getElementById("assessment-status");
+sendBtn.disabled = true;
+sendBtn.textContent = "Sending...";
+const result = await submitToFormspree({
+form: "02 - Assessment Checklist",
+email: document.getElementById("a-email").value,
+care_situation: answers.care,
+marital_status: answers.marital,
+countable_assets: answers.assets,
+checklist: items.join(" | ")
+});
+if (result.ok) {
+statusEl.innerHTML = "Sent! Your assessment checklist was submitted to MedicaidABC via Formspree.";
+sendBtn.textContent = "Checklist Sent \u2713";
+} else {
+statusEl.innerHTML = "Submission failed. Please check your connection or Formspree settings and try again.";
+sendBtn.disabled = false;
+sendBtn.textContent = "Send checklist for assessment \u2192";
+}
+});
+bindModalTriggers(pane);
+}
+// --- 2. SAMPLE TRACKER TABS ---
+const tabPanels = {
+docs: <div class="row"><span>PA Photo ID &amp; Medicare Card</span><span class="status">READY</span></div> <div class="row"><span>Social Security Benefit Verification Letter</span><span class="status">READY</span></div> <div class="row"><span>60 Months Checking Statements (Primary Bank)</span><span class="status">READY</span></div> <div class="row"><span>Life Insurance Cash Surrender Statement</span><span class="status pending">NEEDED</span></div>,
+progress: <div class="row"><span>Step 1: Initial Asset &amp; Marital Snapshot</span><span class="status">COMPLETE</span></div> <div class="row"><span>Step 2: 60-Month Statement Verification</span><span class="status">4 OF 5 VERIFIED</span></div> <div class="row"><span>Step 3: PA 600-L Application Packet</span><span class="status pending">IN PREPARATION</span></div>,
+next: <div class="next"> <strong>Request Life Insurance Cash Value Letter</strong> <p>Contact the carrier's policyholder desk for a written statement confirming current cash surrender value.</p> </div> <div class="next"> <strong>Verify Last 3 Months of Facility Invoices</strong> <p>Keep copies of all private-pay nursing care receipts for spend-down documentation.</p> </div>
+};
+const demoBody = document.getElementById("demo-body");
+const tabButtons = document.querySelectorAll(".tabs button");
+function selectTab(key) {
+tabButtons.forEach(b => b.setAttribute("aria-selected", b.dataset.tab === key ? "true" : "false"));
+demoBody.innerHTML = tabPanels[key];
+}
+tabButtons.forEach(b => b.addEventListener("click", () => selectTab(b.dataset.tab)));
+// --- 3. FORMSPREE INTAKE MODAL ---
+const modal = document.getElementById("intake-modal");
+const modalTitle = document.getElementById("modal-title");
+const modalType = document.getElementById("modal-request-type");
+const modalForm = document.getElementById("modal-form");
+const modalConfirm = document.getElementById("modal-confirm");
+const modalSubmit = document.getElementById("m-submit");
+function bindModalTriggers(root = document) {
+root.querySelectorAll("[data-open-modal]").forEach(btn => {
+btn.addEventListener("click", () => {
+const label = btn.dataset.openModal;
+modalTitle.textContent = label;
+modalType.value = label;
+modalForm.reset();
+modalForm.hidden = false;
+modalConfirm.hidden = true;
+modalSubmit.disabled = false;
+modalSubmit.textContent = "Send checklist request \u2192";
+modal.hidden = false;
+document.getElementById("m-name").focus();
+});
+});
+}
+document.getElementById("close-modal").addEventListener("click", () => modal.hidden = true);
+modal.addEventListener("click", e => { if (e.target === modal) modal.hidden = true; });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !modal.hidden) modal.hidden = true; });
+modalForm.addEventListener("submit", async (e) => {
+e.preventDefault();
+modalSubmit.disabled = true;
+modalSubmit.textContent = "Sending...";
+const result = await submitToFormspree({
+request_type: modalType.value,
+name: document.getElementById("m-name").value,
+email: document.getElementById("m-email").value,
+county: document.getElementById("m-county").value
+});
+if (result.ok) {
+modalForm.hidden = true;
+modalConfirm.hidden = false;
+modalConfirm.innerHTML = <strong>Request Sent!</strong><br>Thank you. Your inquiry for <em>${modalType.value}</em> has been delivered to MedicaidABC.;
+} else {
+modalSubmit.disabled = false;
+modalSubmit.textContent = "Send checklist request \u2192";
+alert("Could not send right now. Please check your Formspree settings or internet connection.");
+}
+});
+// Init
+renderWizard();
+selectTab("docs");
+bindModalTriggers();
+
+
+
+<FollowUp>
+Once you paste that into **`index.html` on GitHub** and connect it to **Cloudflare Pages**, let me know your live `*.pages.dev` URL or if you'd like help **testing the Formspree submission**!
+</FollowUp>
