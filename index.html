@@ -534,20 +534,17 @@ county: document.getElementById("m-county").value
 if (result.ok) {
 modalForm.hidden = true;
 modalConfirm.hidden = false;
-modalConfirm.innerHTML = <strong>Request Sent!</strong><br>Thank you. Your inquiry for <em>${modalType.value}</em> has been delivered to MedicaidABC.;
-} else {
-modalSubmit.disabled = false;
-modalSubmit.textContent = "Send checklist request \u2192";
-alert("Could not send right now. Please check your Formspree settings or internet connection.");
-}
+modalConfirm.innerHTML = `<strong>Request Sent!</strong><br>Thank you. Your inquiry for <em>${modalType.value}</em> has been delivered to MedicaidABC.`;
+  } else {
+    modalSubmit.disabled = false;
+    modalSubmit.textContent = "Send checklist request \u2192";
+    alert("Could not send right now. Please check your Formspree settings or internet connection.");
+  }
 });
 // Init
 renderWizard();
 selectTab("docs");
 bindModalTriggers();
-
-
-
-<FollowUp>
-Once you paste that into **`index.html` on GitHub** and connect it to **Cloudflare Pages**, let me know your live `*.pages.dev` URL or if you'd like help **testing the Formspree submission**!
-</FollowUp>
+</script>
+</body>
+</html>
