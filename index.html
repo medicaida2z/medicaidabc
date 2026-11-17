@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help (v2.0)</title>
+  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help (v2.1)</title>
   <meta name="description" content="A clearer starting point for Pennsylvania long-term care Medicaid applications. A free online assessment, optional $100 attorney chat and a proposed $5,000 application package.">
   <meta name="robots" content="noindex,nofollow">
   <style>
@@ -145,7 +145,7 @@
 </head>
 <body>
 
-  <div class="preview">PRIVATE PREVIEW (v2.0) &bull; Single-Page Pennsylvania Long-Term Care Assessment</div>
+  <div class="preview">PRIVATE PREVIEW (v2.1) &bull; Single-Page Pennsylvania Long-Term Care Assessment</div>
 
   <div class="wrap">
     <header>
@@ -159,7 +159,7 @@
     </header>
 
     <main>
-      <!-- HERO SECTION WITH "THREE WAYS TO START" CARD ON PAGE ONE -->
+      <!-- HERO SECTION WITH "THREE WAYS TO START" CARD PROMINENTLY ON PAGE ONE -->
       <section class="hero">
         <div>
           <span class="eyebrow orange">Pennsylvania Long-Term Care Medicaid</span>
@@ -411,7 +411,7 @@
     </main>
 
     <footer>
-      <strong>MedicaidABC (v2.0) &bull; Pennsylvania Long-Term Care Medicaid Help</strong>
+      <strong>MedicaidABC (v2.1) &bull; Pennsylvania Long-Term Care Medicaid Help</strong>
       <p>Disclaimer: Not affiliated with Pennsylvania Medicaid or PA DHS. Information on this site is general educational information and not legal advice. Submitting a checklist or inquiry does not create an attorney-client relationship. Do not include account numbers or Social Security numbers.</p>
     </footer>
   </div>
@@ -434,4 +434,152 @@
         <input type="hidden" name="assessmentSummary" id="f-assessment-summary" value="Not completed">
         <div class="field">
           <label for="f-name">Your Name</label>
-          <input id="f-name" name
+          <input id="f-name" name="name" type="text" required placeholder="Jane Doe">
+        </div>
+        <div class="field">
+          <label for="f-email">Email Address</label>
+          <input id="f-email" name="email" type="email" required placeholder="jane@example.com">
+        </div>
+        <div class="field">
+          <label for="f-county">Pennsylvania County (Optional)</label>
+          <input id="f-county" name="county" type="text" placeholder="e.g., Bucks, Montgomery, Allegheny">
+        </div>
+
+        <label class="consent-row">
+          <input type="checkbox" id="f-consent" required>
+          <span>I understand this is a preview service, does not create an attorney-client relationship, and contains no SSNs or account numbers.</span>
+        </label>
+
+        <button class="btn" style="width:100%;justify-content:center" type="submit" id="f-submit">Send checklist request &rarr;</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // --- 1. SINGLE-PAGE REAL-TIME ASSESSMENT WIZARD ---
+    let state = {
+      care: "Nursing Facility",
+      marital: "Single / Widowed",
+      assets: "Under $15,000"
+    };
+
+    function updateChecklist() {
+      const summaryTitle = document.getElementById("summary-title");
+      const summaryAssets = document.getElementById("summary-assets");
+      const summaryList = document.getElementById("summary-list");
+
+      summaryTitle.textContent = `${state.care} • ${state.marital}`;
+      summaryAssets.textContent = state.assets;
+
+      const items = [
+        "Photo ID, Medicare card, and Social Security award letter",
+        "60 months (5 years) of checking, savings, and money market statements",
+        "Current statements for any IRAs, 401(k)s, annuities, or brokerage accounts",
+        "Life insurance policies showing face value and cash surrender value",
+        "Deed and current property tax bill for any Pennsylvania real estate",
+        "Pre-paid funeral or burial contract documentation (if applicable)"
+      ];
+
+      if (state.marital && state.marital.startsWith("Married")) {
+        items.push("Marriage certificate and spouse's monthly income & shelter expense records (for PA CSRA/MMMNA calculation)");
+      }
+      if (state.care === "Nursing Facility") {
+        items.push("Nursing facility admission agreement and current monthly private-pay billing statement");
+      }
+
+      summaryList.innerHTML = items.map(i => `<li>${i}</li>`).join("");
+    }
+
+    // Bind click events to single-page option buttons
+    document.querySelectorAll(".choice[data-group]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const group = btn.dataset.group;
+        const val = btn.dataset.val;
+        
+        // Update selection state for this group
+        document.querySelectorAll(`.choice[data-group="${group}"]`).forEach(b => {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+
+        state[group] = val;
+        updateChecklist();
+      });
+    });
+
+    // Initial render
+    updateChecklist();
+
+    // --- 2. SAMPLE CASE TRACKER TABS ---
+    const demoData = {
+      docs: `
+        <div class="row"><span>PA 600-L Long-Term Care Application</span><span class="status">Ready for signature</span></div>
+        <div class="row"><span>60-Month Checking &amp; Savings Statements (PNC)</span><span class="status">Verified (60/60 mos)</span></div>
+        <div class="row"><span>Life Insurance Cash Surrender Value Letter</span><span class="status pending">Awaiting carrier letter</span></div>
+        <div class="row"><span>Spousal Shelter &amp; Utility Expense Summary</span><span class="status">Complete</span></div>
+      `,
+      progress: `
+        <div class="row"><span>1. Initial Assessment &amp; Document Audit</span><span class="status">Completed</span></div>
+        <div class="row"><span>2. 5-Year Look-Back Transaction Review</span><span class="status">Completed</span></div>
+        <div class="row"><span>3. Spousal Resource Allowance Calculation</span><span class="status">Completed</span></div>
+        <div class="row"><span>4. COMPASS Filing &amp; CAO Caseworker Assignment</span><span class="status pending">In Progress</span></div>
+      `,
+      next: `
+        <div class="next">
+          <strong>Upload MetLife Policy Cash Value Statement</strong>
+          <p>Once received, your packet is ready for submission to the County Assistance Office.</p>
+        </div>
+        <div class="next" style="border-color:var(--navy)">
+          <strong>Optional 15-Minute Attorney Check-In</strong>
+          <p>Review spend-down timing before final filing.</p>
+        </div>
+      `
+    };
+    const demoPane = document.getElementById("demo-pane");
+    const tabs = document.querySelectorAll(".tabs button");
+    function setTab(key) {
+      tabs.forEach(t => t.setAttribute("aria-selected", t.dataset.tab === key));
+      demoPane.innerHTML = demoData[key];
+    }
+    tabs.forEach(t => t.addEventListener("click", () => setTab(t.dataset.tab)));
+    setTab("docs");
+
+    // --- 3. FORMSPREE INTAKE MODAL ---
+    const backdrop = document.getElementById("intake-backdrop");
+    const modalTitle = document.getElementById("modal-title");
+    const modalEyebrow = document.getElementById("modal-eyebrow");
+    const submitBtn = document.getElementById("f-submit");
+    const form = document.getElementById("intake-form");
+    let currentInquiryType = "checklist";
+
+    const modalCopy = {
+      checklist: { eyebrow: "Free DIY Resource", title: "Send Pennsylvania DIY checklist", btn: "Send checklist request \u2192" },
+      assessment: { eyebrow: "Free Assessment Review", title: "Submit checklist for free review", btn: "Send assessment for review \u2192" },
+      chat: { eyebrow: "$100 Flat Fee \u2022 15 Minutes", title: "Request PA Medicaid attorney chat", btn: "Request attorney chat \u2192" },
+      package: { eyebrow: "$5,000 Proposed Flat Fee", title: "Inquire about full application package", btn: "Request package consultation \u2192" }
+    };
+
+    function openModal(type) {
+      currentInquiryType = type || "checklist";
+      const cfg = modalCopy[currentInquiryType] || modalCopy.checklist;
+      modalEyebrow.textContent = cfg.eyebrow;
+      modalTitle.textContent = cfg.title;
+      submitBtn.textContent = cfg.btn;
+      backdrop.hidden = false;
+      document.getElementById("f-name").focus();
+    }
+
+    document.querySelectorAll("[data-open-modal]").forEach(btn => {
+      btn.addEventListener("click", () => openModal(btn.dataset.openModal));
+    });
+
+    document.getElementById("modal-close").addEventListener("click", () => { backdrop.hidden = true; });
+    backdrop.addEventListener("click", e => { if (e.target === backdrop) backdrop.hidden = true; });
+
+    form.addEventListener("submit", () => {
+      document.getElementById("f-inquiry-type").value = currentInquiryType;
+      document.getElementById("f-assessment-summary").value = JSON.stringify(state);
+      submitBtn.textContent = "Sending...";
+    });
+  </script>
+</body>
+</html>
