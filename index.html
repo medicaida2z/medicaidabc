@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help (v1.7)</title>
+  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help (v1.8)</title>
   <meta name="description" content="A clearer starting point for Pennsylvania long-term care Medicaid applications. A free online assessment, optional $100 attorney chat and a proposed $5,000 application package.">
   <meta name="robots" content="noindex,nofollow">
   <style>
@@ -50,7 +50,7 @@
     h2{font:normal clamp(30px,3.2vw,42px)/1.12 Georgia,serif;letter-spacing:-1px;margin:10px 0 0;max-width:560px}
     .section-head p{color:var(--muted);max-width:440px;margin:0;font-size:15px}
     
-    /* Single-page Assessment Section Styles */
+    /* Single-page Contained Grid Assessment Styles */
     .assessment-stack{display:grid;grid-template-columns:1fr;gap:25px}
     .assessment-block{background:white;border:1.5px solid var(--navy);border-radius:12px;padding:28px;box-shadow:6px 6px 0 #e4eadd}
     .assessment-block h3{font:normal 22px/1.2 Georgia,serif;margin:0 0 6px}
@@ -145,7 +145,7 @@
 </head>
 <body>
 
-  <div class="preview">PRIVATE PREVIEW (v1.7) &bull; Single-Page Pennsylvania Long-Term Care Assessment</div>
+  <div class="preview">PRIVATE PREVIEW (v1.8) &bull; Single-Page Pennsylvania Long-Term Care Assessment</div>
 
   <div class="wrap">
     <header>
@@ -208,6 +208,39 @@
         <span><b>&check;</b> Decide whether DIY or full representation makes sense</span>
       </div>
 
+      <!-- RESTORED: Three Ways to Start Section on Page 1 -->
+      <section class="section" id="how">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow orange">Three Ways to Use MedicaidABC</span>
+            <h2>Start free. Pay only if you want legal help.</h2>
+          </div>
+          <p>Whether you plan to file on your own or want hands-on legal representation in Pennsylvania, you can start without pressure.</p>
+        </div>
+
+        <div class="three">
+          <div class="step">
+            <div class="number">01</div>
+            <h3>Do It Yourself (Free)</h3>
+            <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
+            <button class="link-btn" type="button" data-open-modal="checklist" style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline">Send checklist request &rarr;</button>
+          </div>
+          <div class="step">
+            <div class="number">02</div>
+            <h3>Free Assessment</h3>
+            <p>Review your live single-page checklist below, save a summary, and optionally send it to us for initial review.</p>
+            <a style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline;display:inline-block" href="#assessment">View my checklist &rarr;</a>
+          </div>
+          <div class="step">
+            <div class="number">03</div>
+            <h3>Attorney Chat ($100)</h3>
+            <p>Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.</p>
+            <button class="link-btn" type="button" data-open-modal="chat" style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline">Request attorney chat &rarr;</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contained Grid Single-Page Assessment Section -->
       <section class="section" id="assessment">
         <div class="section-head">
           <div>
@@ -295,37 +328,6 @@
         </div>
       </section>
 
-      <section class="section" id="how">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow orange">Three Ways to Use MedicaidABC</span>
-            <h2>Start free. Pay only if you want legal help.</h2>
-          </div>
-          <p>Whether you plan to file on your own or want hands-on legal representation in Pennsylvania, you can start without pressure.</p>
-        </div>
-
-        <div class="three">
-          <div class="step">
-            <div class="number">01</div>
-            <h3>Do It Yourself (Free)</h3>
-            <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
-            <button class="link-btn" type="button" data-open-modal="checklist" style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline">Send checklist request &rarr;</button>
-          </div>
-          <div class="step">
-            <div class="number">02</div>
-            <h3>Free Assessment</h3>
-            <p>Review your live single-page checklist above, save a summary, and optionally send it to us for initial review.</p>
-            <a style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline;display:inline-block" href="#assessment">View my checklist &rarr;</a>
-          </div>
-          <div class="step">
-            <div class="number">03</div>
-            <h3>Attorney Chat ($100)</h3>
-            <p>Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.</p>
-            <button class="link-btn" type="button" data-open-modal="chat" style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline">Request attorney chat &rarr;</button>
-          </div>
-        </div>
-      </section>
-
       <section class="section" id="package">
         <div class="package">
           <div>
@@ -408,7 +410,7 @@
     </main>
 
     <footer>
-      <strong>MedicaidABC (v1.7) &bull; Pennsylvania Long-Term Care Medicaid Help</strong>
+      <strong>MedicaidABC (v1.8) &bull; Pennsylvania Long-Term Care Medicaid Help</strong>
       <p>Disclaimer: Not affiliated with Pennsylvania Medicaid or PA DHS. Information on this site is general educational information and not legal advice. Submitting a checklist or inquiry does not create an attorney-client relationship. Do not include account numbers or Social Security numbers.</p>
     </footer>
   </div>
