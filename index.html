@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help</title>
+  <title>MedicaidABC | Pennsylvania Long-Term Care Medicaid Help (v1.7)</title>
   <meta name="description" content="A clearer starting point for Pennsylvania long-term care Medicaid applications. A free online assessment, optional $100 attorney chat and a proposed $5,000 application package.">
   <meta name="robots" content="noindex,nofollow">
   <style>
@@ -49,31 +49,27 @@
     .section-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:42px}
     h2{font:normal clamp(30px,3.2vw,42px)/1.12 Georgia,serif;letter-spacing:-1px;margin:10px 0 0;max-width:560px}
     .section-head p{color:var(--muted);max-width:440px;margin:0;font-size:15px}
-    .wizard{background:white;border:1.5px solid var(--navy);border-radius:12px;overflow:hidden;box-shadow:8px 8px 0 #e4eadd}
-    .wizard-top{background:var(--navy);color:white;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-    .wizard-top strong{font-size:14px;letter-spacing:.3px}
-    .wizard-top span{font-size:13px;color:#cbd7d8}
-    .wizard-body{padding:32px 28px}
-    .wizard-q{font:normal 26px/1.25 Georgia,serif;margin:0 0 8px}
-    .wizard-sub{color:var(--muted);font-size:15px;margin:0 0 22px}
+    
+    /* Single-page Assessment Section Styles */
+    .assessment-stack{display:grid;grid-template-columns:1fr;gap:25px}
+    .assessment-block{background:white;border:1.5px solid var(--navy);border-radius:12px;padding:28px;box-shadow:6px 6px 0 #e4eadd}
+    .assessment-block h3{font:normal 22px/1.2 Georgia,serif;margin:0 0 6px}
+    .assessment-block p{color:var(--muted);font-size:14px;margin:0 0 18px}
     .choices{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .choice{text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:18px;position:relative}
+    .choice{text-align:left;background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:16px;position:relative}
     .choice:hover{border-color:var(--navy);background:#f3f0e6}
     .choice[aria-pressed="true"]{border-color:var(--orange);background:#fff7f4}
-    .choice strong{display:block;font-size:16px;margin-bottom:4px}
-    .choice span{display:block;font-size:13px;color:var(--muted);line-height:1.45}
-    .choice .arrow{display:inline-block;margin-top:10px;font-size:12px;font-weight:bold;color:var(--orange)}
-    .wizard-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:18px;border-top:1px solid var(--line);gap:12px;flex-wrap:wrap}
-    .link-btn{background:none;border:0;color:var(--muted);font-size:14px;font-weight:bold;padding:6px 0;text-decoration:underline}
-    .result-box{background:var(--mint);border:1px solid #c5d6c5;border-radius:10px;padding:26px}
-    .result-box h3{font:normal 28px/1.2 Georgia,serif;margin:8px 0 10px}
-    .result-box p{margin:0 0 16px;color:var(--navy);font-size:15px}
-    .result-list{margin:0 0 20px;padding-left:20px;font-size:15px}
-    .result-list li{margin:7px 0}
+    .choice strong{display:block;font-size:15px;margin-bottom:4px}
+    .choice span{display:block;font-size:13px;color:var(--muted);line-height:1.4}
+    
+    .live-summary{background:var(--mint);border:1.5px solid #c5d6c5;border-radius:12px;padding:30px;margin-top:10px}
+    .live-summary h3{font:normal 26px/1.2 Georgia,serif;margin:6px 0 10px}
+    .live-summary p{margin:0 0 16px;color:var(--navy);font-size:15px}
     .checklist-review{background:white;border:1px solid #c5d6c5;border-radius:8px;padding:20px;margin-top:20px}
     .checklist-review h4{margin:0 0 10px;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
     .checklist-review ul{margin:0;padding-left:20px;font-size:15px}
     .checklist-review li{margin:6px 0}
+
     .consent-row{display:flex;align-items:start;gap:10px;margin:18px 0;font-size:14px;color:var(--navy)}
     .consent-row input{margin-top:4px;width:16px;height:16px;accent-color:var(--orange)}
     .three{display:grid;grid-template-columns:repeat(3,1fr);gap:35px}
@@ -122,8 +118,6 @@
     .field{margin:14px 0}
     .field label{display:block;font-size:13px;font-weight:bold;margin-bottom:6px}
     .field input,.field select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
-    .confirm-box{background:var(--mint);padding:18px;border-radius:8px;margin-top:16px;font-size:14px}
-    .warn-box{background:#fff8f3;border:1px solid var(--orange);padding:12px 14px;border-radius:6px;font-size:13px;color:var(--navy);margin:14px 0}
     button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
     [hidden]{display:none!important}
     .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
@@ -145,21 +139,19 @@
       .package{gap:35px;padding:28px}
       .demo-grid{gap:32px}
       .choices{gap:10px}
-      .choice{padding:18px 48px 18px 18px}
-      .choice .arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);margin:0}
       .last,footer{flex-direction:column;align-items:start;gap:20px}
     }
   </style>
 </head>
 <body>
 
-  <div class="preview">PRIVATE PREVIEW (v1.6) &bull; Proposed Pennsylvania Long-Term Care Medicaid Service</div>
+  <div class="preview">PRIVATE PREVIEW (v1.7) &bull; Single-Page Pennsylvania Long-Term Care Assessment</div>
 
   <div class="wrap">
     <header>
       <a class="brand" href="#">Medicaid<span>ABC</span></a>
       <nav aria-label="Primary">
-        <a href="#assessment">Free Assessment</a>
+        <a href="#assessment">Assessment</a>
         <a href="#how">Three Ways to Start</a>
         <a href="#package">$5,000 Package</a>
         <a href="#faq">FAQ</a>
@@ -171,9 +163,9 @@
         <div>
           <span class="eyebrow orange">Pennsylvania Long-Term Care Medicaid</span>
           <h1>A clearer starting point for <em>Pennsylvania Medicaid</em> applications.</h1>
-          <p class="lead">Build your document checklist free online, request a no-cost checklist assessment, or book an optional 15-minute attorney chat before committing to a full filing.</p>
+          <p class="lead">Build your document checklist instantly on one page, request a no-cost review, or book an optional $100 attorney chat before committing to a full filing.</p>
           <div class="hero-actions">
-            <a class="btn" href="#assessment">Start Free Assessment &rarr;</a>
+            <a class="btn" href="#assessment">View Single-Page Assessment &rarr;</a>
             <button class="btn btn-outline" type="button" data-open-modal="checklist">Get Free DIY Checklist</button>
           </div>
           <p class="fine">Not affiliated with Pennsylvania Medicaid or PA DHS. Do not enter SSNs or account numbers.</p>
@@ -219,18 +211,87 @@
       <section class="section" id="assessment">
         <div class="section-head">
           <div>
-            <span class="eyebrow orange">Free Assessment</span>
-            <h2>Build your Pennsylvania assessment checklist.</h2>
+            <span class="eyebrow orange">Single-Page Assessment</span>
+            <h2>All options on one page. Select your details below.</h2>
           </div>
-          <p>Answer three quick questions to generate your tailored document list, save a copy, or send it to MedicaidABC for review.</p>
+          <p>Make your selections across all categories to update your customized Pennsylvania document checklist in real time.</p>
         </div>
 
-        <div class="wizard" id="wizard-box">
-          <div class="wizard-top">
-            <strong id="wizard-step-label">Step 1 of 3 &bull; Care Situation</strong>
-            <span>Pennsylvania Long-Term Care Assessment</span>
+        <div class="assessment-stack">
+          <!-- Block 1: Care Situation -->
+          <div class="assessment-block">
+            <h3>1. Care Situation</h3>
+            <p>Where is the applicant currently receiving care?</p>
+            <div class="choices" id="group-care">
+              <button type="button" class="choice" data-group="care" data-val="Nursing Facility" aria-pressed="true">
+                <strong>Skilled Nursing Facility</strong>
+                <span>Currently in a nursing home or transitioning from hospital/rehab.</span>
+              </button>
+              <button type="button" class="choice" data-group="care" data-val="Home / Waiver" aria-pressed="false">
+                <strong>At Home / Community Waiver</strong>
+                <span>Needs daily help at home through PA Community HealthChoices.</span>
+              </button>
+              <button type="button" class="choice" data-group="care" data-val="Planning Ahead" aria-pressed="false">
+                <strong>Planning Ahead</strong>
+                <span>No immediate facility admission, preparing documents early.</span>
+              </button>
+            </div>
           </div>
-          <div class="wizard-body" id="wizard-pane"></div>
+
+          <!-- Block 2: Marital Status -->
+          <div class="assessment-block">
+            <h3>2. Marital Status</h3>
+            <p>What is the applicant's marital status?</p>
+            <div class="choices" id="group-marital">
+              <button type="button" class="choice" data-group="marital" data-val="Single / Widowed" aria-pressed="true">
+                <strong>Single / Widowed</strong>
+                <span>Individual applicant without a living spouse.</span>
+              </button>
+              <button type="button" class="choice" data-group="marital" data-val="Married (One Spouse Needs Care)" aria-pressed="false">
+                <strong>Married (One Needs Care)</strong>
+                <span>Healthy spouse remains in community (CSRA rules apply).</span>
+              </button>
+              <button type="button" class="choice" data-group="marital" data-val="Married (Both Need Care)" aria-pressed="false">
+                <strong>Married (Both Need Care)</strong>
+                <span>Both spouses require long-term care services.</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Block 3: Assets -->
+          <div class="assessment-block">
+            <h3>3. Countable Resources</h3>
+            <p>Approximate countable assets (excluding primary home)?</p>
+            <div class="choices" id="group-assets">
+              <button type="button" class="choice" data-group="assets" data-val="Under $15,000" aria-pressed="true">
+                <strong>Under $15,000</strong>
+                <span>Near PA individual resource limits; priority is 60-month audit.</span>
+              </button>
+              <button type="button" class="choice" data-group="assets" data-val="$15,000 - $150,000" aria-pressed="false">
+                <strong>$15,000 – $150,000</strong>
+                <span>Spousal allowance or spend-down planning may apply.</span>
+              </button>
+              <button type="button" class="choice" data-group="assets" data-val="Over $150,000" aria-pressed="false">
+                <strong>Over $150,000</strong>
+                <span>Attorney review recommended before spending down savings.</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Result Box -->
+          <div class="live-summary" id="live-result-box">
+            <span class="eyebrow orange">Your Tailored Pennsylvania Checklist</span>
+            <h3 id="summary-title">Skilled Nursing Facility &bull; Single / Widowed</h3>
+            <p>Resource profile: <strong id="summary-assets">Under $15,000</strong>. Gather the items below before submitting a PA 600-L / COMPASS application:</p>
+            <div class="checklist-review">
+              <h4>Required Pennsylvania Verification Documents</h4>
+              <ul id="summary-list"></ul>
+            </div>
+            <div class="hero-actions" style="margin-top:20px">
+              <button type="button" class="btn" data-open-modal="assessment">Send Checklist for Free Review &rarr;</button>
+              <button type="button" class="btn btn-outline" data-open-modal="chat">Book $100 Attorney Chat</button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -248,19 +309,19 @@
             <div class="number">01</div>
             <h3>Do It Yourself (Free)</h3>
             <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
-            <button class="link-btn" type="button" data-open-modal="checklist">Send checklist request &rarr;</button>
+            <button class="link-btn" type="button" data-open-modal="checklist" style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline">Send checklist request &rarr;</button>
           </div>
           <div class="step">
             <div class="number">02</div>
             <h3>Free Assessment</h3>
-            <p>Complete the 3-step assessment above, review your completed checklist, save a summary, and optionally send it to us for initial review.</p>
-            <a class="link-btn" href="#assessment">Build my checklist &rarr;</a>
+            <p>Review your live single-page checklist above, save a summary, and optionally send it to us for initial review.</p>
+            <a style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline;display:inline-block" href="#assessment">View my checklist &rarr;</a>
           </div>
           <div class="step">
             <div class="number">03</div>
             <h3>Attorney Chat ($100)</h3>
             <p>Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.</p>
-            <button class="link-btn" type="button" data-open-modal="chat">Request attorney chat &rarr;</button>
+            <button class="link-btn" type="button" data-open-modal="chat" style="background:none;border:0;color:var(--muted);font-weight:bold;padding:6px 0;text-decoration:underline">Request attorney chat &rarr;</button>
           </div>
         </div>
       </section>
@@ -342,12 +403,12 @@
           <h2>Start with your free Pennsylvania checklist.</h2>
           <p>Build your custom assessment above or request the DIY checklist in seconds.</p>
         </div>
-        <a class="btn" href="#assessment">Start Free Assessment &rarr;</a>
+        <a class="btn" href="#assessment">View Single-Page Assessment &rarr;</a>
       </div>
     </main>
 
     <footer>
-      <strong>MedicaidABC &bull; Pennsylvania Long-Term Care Medicaid Help</strong>
+      <strong>MedicaidABC (v1.7) &bull; Pennsylvania Long-Term Care Medicaid Help</strong>
       <p>Disclaimer: Not affiliated with Pennsylvania Medicaid or PA DHS. Information on this site is general educational information and not legal advice. Submitting a checklist or inquiry does not create an attorney-client relationship. Do not include account numbers or Social Security numbers.</p>
     </footer>
   </div>
@@ -392,49 +453,21 @@
   </div>
 
   <script>
-    // --- 1. INTERACTIVE 3-STEP ASSESSMENT WIZARD ---
-    const steps = [
-      {
-        key: "care",
-        label: "Care Situation",
-        title: "Where is the applicant currently receiving care?",
-        subtitle: "Pennsylvania long-term care rules depend on whether care is in a skilled nursing facility or at home.",
-        options: [
-          { value: "Nursing Facility", title: "Skilled Nursing Facility", desc: "Currently in a nursing home or transitioning from hospital/rehab." },
-          { value: "Home / Waiver", title: "At Home / Community Waiver", desc: "Needs daily help at home through PA Community HealthChoices." },
-          { value: "Planning Ahead", title: "Planning Ahead", desc: "No immediate facility admission, preparing documents early." }
-        ]
-      },
-      {
-        key: "marital",
-        label: "Marital Status",
-        title: "What is the applicant's marital status?",
-        subtitle: "Different Pennsylvania asset and income allowances apply when a spouse remains at home.",
-        options: [
-          { value: "Single / Widowed", title: "Single / Widowed", desc: "Individual applicant without a living spouse." },
-          { value: "Married (One Spouse Needs Care)", title: "Married (One Needs Care)", desc: "Healthy spouse remains in the community (CSRA rules apply)." },
-          { value: "Married (Both Need Care)", title: "Married (Both Need Care)", desc: "Both spouses require long-term care services." }
-        ]
-      },
-      {
-        key: "assets",
-        label: "Countable Resources",
-        title: "Approximate countable assets (excluding primary home)?",
-        subtitle: "Do not enter exact balances or account numbers—select a general range.",
-        options: [
-          { value: "Under $15,000", title: "Under $15,000", desc: "Near PA individual resource limits; priority is 60-month statement audit." },
-          { value: "$15,000 - $150,000", title: "$15,000 – $150,000", desc: "Spousal allowance or compliant spend-down planning may apply." },
-          { value: "Over $150,000", title: "Over $150,000", desc: "Attorney review recommended before spending down savings." }
-        ]
-      }
-    ];
+    // --- 1. SINGLE-PAGE REAL-TIME ASSESSMENT WIZARD ---
+    let state = {
+      care: "Nursing Facility",
+      marital: "Single / Widowed",
+      assets: "Under $15,000"
+    };
 
-    let currentStep = 0;
-    let answers = {};
-    const pane = document.getElementById("wizard-pane");
-    const stepLabel = document.getElementById("wizard-step-label");
+    function updateChecklist() {
+      const summaryTitle = document.getElementById("summary-title");
+      const summaryAssets = document.getElementById("summary-assets");
+      const summaryList = document.getElementById("summary-list");
 
-    function buildChecklistItems() {
+      summaryTitle.textContent = `${state.care} • ${state.marital}`;
+      summaryAssets.textContent = state.assets;
+
       const items = [
         "Photo ID, Medicare card, and Social Security award letter",
         "60 months (5 years) of checking, savings, and money market statements",
@@ -443,76 +476,35 @@
         "Deed and current property tax bill for any Pennsylvania real estate",
         "Pre-paid funeral or burial contract documentation (if applicable)"
       ];
-      if (answers.marital && answers.marital.startsWith("Married")) {
+
+      if (state.marital && state.marital.startsWith("Married")) {
         items.push("Marriage certificate and spouse's monthly income & shelter expense records (for PA CSRA/MMMNA calculation)");
       }
-      if (answers.care === "Nursing Facility") {
+      if (state.care === "Nursing Facility") {
         items.push("Nursing facility admission agreement and current monthly private-pay billing statement");
       }
-      return items;
+
+      summaryList.innerHTML = items.map(i => `<li>${i}</li>`).join("");
     }
 
-    function renderWizard() {
-      if (currentStep < steps.length) {
-        const s = steps[currentStep];
-        stepLabel.textContent = `Step ${currentStep + 1} of 3 • ${s.label}`;
-        pane.innerHTML = `
-          <h3 class="wizard-q">${s.title}</h3>
-          <p class="wizard-sub">${s.subtitle}</p>
-          <div class="choices">
-            ${s.options.map((opt, idx) => `
-              <button type="button" class="choice" aria-pressed="${answers[s.key] === opt.value}" data-opt="${idx}">
-                <strong>${opt.title}</strong>
-                <span>${opt.desc}</span>
-                <span class="arrow">Select &rarr;</span>
-              </button>
-            `).join("")}
-          </div>
-          <div class="wizard-nav">
-            ${currentStep > 0 ? `<button type="button" class="link-btn" id="wiz-back">&larr; Back</button>` : `<span></span>`}
-            <span style="font-size:13px;color:var(--muted)">No personal identifiers required</span>
-          </div>
-        `;
-        pane.querySelectorAll(".choice").forEach(btn => {
-          btn.addEventListener("click", () => {
-            answers[s.key] = s.options[Number(btn.dataset.opt)].value;
-            currentStep++;
-            renderWizard();
-          });
+    // Bind click events to single-page option buttons
+    document.querySelectorAll(".choice[data-group]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const group = btn.dataset.group;
+        const val = btn.dataset.val;
+        
+        // Update selection state for this group
+        document.querySelectorAll(`.choice[data-group="${group}"]`).forEach(b => {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
         });
-        const backBtn = document.getElementById("wiz-back");
-        if (backBtn) backBtn.addEventListener("click", () => { currentStep--; renderWizard(); });
-      } else {
-        stepLabel.textContent = "Assessment Complete • Tailored PA Checklist";
-        const items = buildChecklistItems();
-        pane.innerHTML = `
-          <div class="result-box">
-            <span class="eyebrow orange">Your Tailored Pennsylvania Checklist</span>
-            <h3>${answers.care} &bull; ${answers.marital}</h3>
-            <p>Resource profile: <strong>${answers.assets}</strong>. Gather the items below before submitting a PA 600-L / COMPASS application:</p>
-            <div class="checklist-review">
-              <h4>Required Pennsylvania Verification Documents</h4>
-              <ul>${items.map(i => `<li>${i}</li>`).join("")}</ul>
-            </div>
-            <div class="hero-actions" style="margin-top:20px">
-              <button type="button" class="btn" data-open-modal="assessment">Send Checklist for Free Review &rarr;</button>
-              <button type="button" class="btn btn-outline" data-open-modal="chat">Book $100 Attorney Chat</button>
-            </div>
-          </div>
-          <div class="wizard-nav">
-            <button type="button" class="link-btn" id="wiz-restart">&larr; Start assessment over</button>
-            <span style="font-size:13px;color:var(--muted)">100% of $100 chat fee credits toward $5,000 package</span>
-          </div>
-        `;
-        document.getElementById("wiz-restart").addEventListener("click", () => {
-          currentStep = 0;
-          answers = {};
-          renderWizard();
-        });
-        wireModalTriggers(pane);
-      }
-    }
-    renderWizard();
+
+        state[group] = val;
+        updateChecklist();
+      });
+    });
+
+    // Initial render
+    updateChecklist();
 
     // --- 2. SAMPLE CASE TRACKER TABS ---
     const demoData = {
@@ -573,19 +565,16 @@
       document.getElementById("f-name").focus();
     }
 
-    function wireModalTriggers(root = document) {
-      root.querySelectorAll("[data-open-modal]").forEach(btn => {
-        btn.addEventListener("click", () => openModal(btn.dataset.openModal));
-      });
-    }
-    wireModalTriggers();
+    document.querySelectorAll("[data-open-modal]").forEach(btn => {
+      btn.addEventListener("click", () => openModal(btn.dataset.openModal));
+    });
 
     document.getElementById("modal-close").addEventListener("click", () => { backdrop.hidden = true; });
     backdrop.addEventListener("click", e => { if (e.target === backdrop) backdrop.hidden = true; });
 
     form.addEventListener("submit", () => {
       document.getElementById("f-inquiry-type").value = currentInquiryType;
-      document.getElementById("f-assessment-summary").value = Object.keys(answers).length ? JSON.stringify(answers) : "Not completed";
+      document.getElementById("f-assessment-summary").value = JSON.stringify(state);
       submitBtn.textContent = "Sending...";
     });
   </script>
