@@ -3,945 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedicaidABC v2.4 | Pennsylvania Long-Term Care & Medicaid Navigation</title>
-  <style>
-    :root {
-      --bg-color: #fcfbf9;
-      --card-bg: #ffffff;
-      --text-main: #111827;
-      --text-muted: #4b5563;
-      --border-color: #d1d5db;
-      --primary-orange: #c2410c;
-      --primary-dark: #0f172a;
-      --success: #16a34a;
-      --warning: #d97706;
-      --danger: #dc2626;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 0;
-      line-height: 1.5;
-    }
-
-    .preview-bar {
-      background: #0f172a;
-      color: #94a3b8;
-      font-size: 0.75rem;
-      text-align: center;
-      padding: 0.35rem 1rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    .status-toast {
-      display: none;
-      max-width: 900px;
-      margin: 1rem auto 0;
-      padding: 0.9rem 1.25rem;
-      background: #dcfce7;
-      border: 1px solid #86efac;
-      color: #166534;
-      border-radius: 8px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--text-main);
-      letter-spacing: -0.02em;
-      cursor: pointer;
-    }
-    .logo span { color: var(--primary-orange); }
-    nav {
-      display: flex;
-      gap: 1.75rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-    nav a { text-decoration: none; color: inherit; cursor: pointer; }
-    nav a:hover { color: var(--text-main); }
-
-    .hero {
-      max-width: 900px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.5rem;
-      text-align: left;
-    }
-    .hero-subtitle-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--primary-orange);
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      line-height: 1.15;
-      margin: 0 0 1.25rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-    .hero h1 span { color: var(--primary-orange); }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      margin: 0 0 0.5rem;
-    }
-    .disclaimer {
-      font-size: 0.78rem;
-      color: #6b7280;
-      margin-top: 1rem;
-    }
-
-    .grid-3 {
-      max-width: 1200px;
-      margin: 0 auto 3rem;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    
-    .card-badge {
-      position: absolute;
-      top: 1.75rem;
-      right: 1.75rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--primary-orange);
-      background: #ffedd5;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-    }
-
-    .card-num {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary-orange);
-      margin-bottom: 0.5rem;
-    }
-    .card h3 {
-      font-size: 1.4rem;
-      margin: 0 0 0.75rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .card p {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      margin: 0 0 1.5rem;
-      line-height: 1.5;
-      flex-grow: 1;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 0.85rem 1rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-decoration: none;
-      cursor: pointer;
-      border: 1px solid var(--border-color);
-      background: #ffffff;
-      color: var(--text-main);
-      transition: all 0.2s;
-    }
-    .btn:hover { background: #f3f4f6; }
-    
-    .btn-dark {
-      background: var(--primary-dark);
-      color: #ffffff;
-      border-color: var(--primary-dark);
-    }
-    .btn-dark:hover { background: #1e293b; }
-
-    .btn-orange {
-      background: #ea580c;
-      color: #ffffff;
-      border-color: #ea580c;
-    }
-    .btn-orange:hover { background: #c2410c; }
-
-    /* Assessment Grid Styles */
-    .assessment-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.25rem 0 1.5rem;
-      font-size: 0.92rem;
-    }
-    .assessment-table th, .assessment-table td {
-      border: 1px solid var(--border-color);
-      padding: 0.85rem;
-      text-align: left;
-      vertical-align: middle;
-    }
-    .assessment-table th {
-      background: #f8fafc;
-      font-weight: 700;
-      color: var(--primary-dark);
-      width: 34%;
-    }
-    .assessment-table select, .assessment-table input {
-      width: 100%;
-      padding: 0.55rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 0.9rem;
-      background: #fff;
-    }
-    .result-banner {
-      display: none;
-      padding: 1.25rem;
-      border-radius: 8px;
-      margin-top: 1.25rem;
-      border-left: 5px solid var(--primary-dark);
-      background: #f8fafc;
-    }
-    .result-banner.approved {
-      background: #f0fdf4;
-      border-left-color: var(--success);
-      color: #14532d;
-    }
-    .result-banner.conditional {
-      background: #fffbeb;
-      border-left-color: var(--warning);
-      color: #78350f;
-    }
-    .result-banner.not-approved {
-      background: #fef2f2;
-      border-left-color: var(--danger);
-      color: #7f1d1d;
-    }
-
-    /* FAQ Section */
-    .faq-section {
-      max-width: 900px;
-      margin: 4rem auto;
-      padding: 0 1.5rem;
-    }
-    .faq-section h2 {
-      font-size: 2rem;
-      color: var(--primary-dark);
-      margin-bottom: 1.5rem;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 0.5rem;
-    }
-    .faq-item {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .faq-item h4 {
-      margin: 0 0 0.5rem;
-      color: var(--primary-orange);
-      font-size: 1.05rem;
-    }
-    .faq-item p, .faq-item ul {
-      margin: 0;
-      color: var(--text-muted);
-      font-size: 0.92rem;
-    }
-    .faq-item ul {
-      margin-top: 0.5rem;
-      padding-left: 1.25rem;
-    }
-    .faq-item li {
-      margin-bottom: 0.35rem;
-    }
-
-    #ltc-checklist-panel {
-      display: none;
-      max-width: 900px;
-      margin: 2rem auto 4rem;
-      padding: 2.5rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-    }
-    .checklist-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 1rem;
-      border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .checklist-header h2 { margin: 0; font-size: 1.5rem; color: var(--text-main); }
-    .checklist-sub { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
-    .checklist-actions {
-      display: flex;
-      gap: 0.65rem;
-      flex-wrap: wrap;
-    }
-    
-    .progress-wrap { background: #e5e7eb; border-radius: 999px; height: 10px; margin-bottom: 0.4rem; overflow: hidden; }
-    .progress-fill { background: var(--success); height: 100%; width: 0%; transition: width 0.25s ease; }
-    .progress-label { font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 1.75rem; display: block; }
-
-    .checklist-category {
-      margin-top: 1.75rem;
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--primary-orange);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .checklist-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.85rem;
-      padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid #f3f4f6;
-      cursor: pointer;
-    }
-    .checklist-item:hover { background: #f9fafb; }
-    .checklist-item input[type="checkbox"] {
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      accent-color: var(--success);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .checklist-text strong { display: block; font-size: 0.96rem; color: var(--text-main); font-weight: 600; }
-    .checklist-item.checked .checklist-text strong { text-decoration: line-through; color: var(--text-muted); }
-    .checklist-note { display: block; font-size: 0.83rem; color: var(--text-muted); margin-top: 0.25rem; }
-
-    .checklist-footer-nav {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e5e7eb;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .trust-footer {
-      max-width: 900px;
-      margin: 0 auto 4rem;
-      padding: 0 1.5rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-    .trust-bullet { display: flex; align-items: flex-start; gap: 0.5rem; }
-    .trust-bullet span { color: var(--success); font-weight: bold; }
-
-    @media print {
-      body * { visibility: hidden; }
-      #ltc-checklist-panel, #ltc-checklist-panel * { visibility: visible; }
-      #ltc-checklist-panel { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; margin: 0; padding: 1rem; }
-      .no-print { display: none !important; }
-    }
-  </style>
-</head>
-<body>
-
-  <div class="preview-bar">MEDICAIDABC v2.4 • 2027 GRAND OPENING &amp; WAITING LIST</div>
-
-  <div id="status-toast" class="status-toast">
-    <span id="status-toast-msg">Your Attorney Chat consultation request has been sent!</span>
-    <button type="button" onclick="document.getElementById('status-toast').style.display='none'" style="background:none;border:none;font-weight:700;cursor:pointer;color:#166534;">✕</button>
-  </div>
-
-  <header>
-    <div class="logo" onclick="returnToMain()">Medicaid<span>ABC</span> (v2.4)</div>
-    <nav>
-      <a onclick="returnToMain()">Three Ways to Start</a>
-      <a onclick="openAssessmentGrid()">Assessment Grid</a>
-      <a onclick="openAttorneyForm()">Attorney Chat ($100)</a>
-      <a href="#faq-section">FAQ</a>
-    </nav>
-  </header>
-
-  <div class="hero" id="hero-section">
-    <span class="hero-subtitle-tag">Pennsylvania Long-Term Care Medicaid • Three Ways to Start</span>
-    <h1>A clearer starting point for <span>Pennsylvania Medicaid</span> applications.</h1>
-    <p>Start free. Pay only if you want legal help. Choose the path that fits your family right now:</p>
-    <div class="disclaimer">Not affiliated with Pennsylvania Medicaid or PA DHS. Do not enter SSNs or account numbers.</div>
-  </div>
-
-  <!-- Three Service Cards Grid (Screen 1) -->
-  <div class="grid-3" id="main-options-grid">
-    
-    <!-- Option 1: Do It Yourself -->
-    <div class="card">
-      <span class="card-badge">Free</span>
-      <div class="card-num">01</div>
-      <h3>Do It Yourself</h3>
-      <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
-      <button type="button" class="btn" onclick="openOption1Form()">Get Free DIY Checklist &rarr;</button>
-    </div>
-
-    <!-- Option 2: Free Assessment Grid -->
-    <div class="card" style="border-color: #0f172a; border-width: 2px;">
-      <span class="card-badge">Free</span>
-      <div class="card-num">02</div>
-      <h3>Free Assessment</h3>
-      <p>Fill in the single-page financial &amp; care grid to check whether your situation meets 2026 PA Medicaid approval thresholds.</p>
-      <button type="button" class="btn btn-dark" onclick="openAssessmentGrid()">Open Assessment Grid &darr;</button>
-    </div>
-
-    <!-- Option 3: Attorney Chat -->
-    <div class="card" id="package-section">
-      <span class="card-badge" style="background: #fee2e2; color: #991b1b;">$100 flat fee</span>
-      <div class="card-num">03</div>
-      <h3>Attorney Chat</h3>
-      <p>Send your contact info and questions to schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney.</p>
-      <button type="button" class="btn btn-orange" onclick="openAttorneyForm()">Schedule Attorney Chat ($100) &rarr;</button>
-    </div>
-
-  </div>
-
-  <!-- OPTION 1 PANEL: Lead Intake Form for DIY Checklist -->
-  <div id="option1-form-card" class="card" style="max-width: 650px; margin: 0 auto 3rem; display: none;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-      <h2 style="margin: 0;">Option 1: Unlock Free DIY Checklist</h2>
-      <button type="button" onclick="returnToMain()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; font-weight: 600;">✕ Back to Screen 1</button>
-    </div>
-    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-      Enter your details to instantly unlock the 2026 PA LTC checklist and receive a copy via email.
-    </p>
-
-    <form id="diy-intake-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-      <input type="hidden" name="request_type" value="Option 1 - Free DIY Checklist" />
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Full Name</label>
-        <input type="text" name="name" placeholder="Jane Doe" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Email Address</label>
-        <input type="email" name="email" placeholder="name@example.com" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1.25rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Brief Care Status</label>
-        <textarea name="notes" rows="2" placeholder="Entering SNF in PA..." style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;"></textarea>
-      </div>
-
-      <button type="submit" id="diy-submit-btn" class="btn btn-dark">Submit &amp; View PA LTC Checklist</button>
-      <p id="diy-form-error" style="color: #dc2626; display: none; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 500;">Submission error. Please check your network connection.</p>
-    </form>
-  </div>
-
-  <!-- OPTION 2 PANEL: Interactive Eligibility Assessment Grid -->
-  <div id="option2-grid-card" class="card" style="max-width: 820px; margin: 0 auto 3rem; display: none;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-      <h2 style="margin: 0;">Option 2: 2026 PA Medicaid Eligibility Assessment Grid</h2>
-      <button type="button" onclick="returnToMain()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; font-weight: 600;">✕ Back to Screen 1</button>
-    </div>
-    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-      Fill in the grid below to evaluate preliminary 2026 Pennsylvania Long-Term Care Medicaid approval status.
-    </p>
-
-    <form id="eligibility-grid-form">
-      <table class="assessment-table">
-        <tbody>
-          <tr>
-            <th>1. Marital Status</th>
-            <td>
-              <select id="grid-marital" required>
-                <option value="single">Single / Unmarried Applicant</option>
-                <option value="married">Married (Spouse remaining at home / Community Spouse)</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th>2. Level of Care Need</th>
-            <td>
-              <select id="grid-loc" required>
-                <option value="nfce">Requires Nursing Facility Level of Care (NFCE / ADL help)</option>
-                <option value="independent">Independent / Assisted Living only (No NFCE need)</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <th>3. Applicant Monthly Gross Income ($)</th>
-            <td>
-              <input type="number" id="grid-income" placeholder="e.g. 2400" min="0" step="1" required />
-              <small style="color: var(--text-muted); display:block; margin-top:0.25rem;">2026 PA Special Income Limit is $2,982/month.</small>
-            </td>
-          </tr>
-          <tr>
-            <th>4. Total Countable Assets ($)<br><small style="font-weight:400; color:var(--text-muted);">(Checking, savings, CDs, IRAs, stocks; exclude 1 home &amp; 1 car)</small></th>
-            <td>
-              <input type="number" id="grid-assets" placeholder="e.g. 6500" min="0" step="1" required />
-              <small style="color: var(--text-muted); display:block; margin-top:0.25rem;">2026 PA Single limit: $8,000 (or $2,400 if income &gt; $2,982/mo). Married CSRA up to $162,660.</small>
-            </td>
-          </tr>
-          <tr>
-            <th>5. Gifts or Asset Transfers in Past 60 Months?</th>
-            <td>
-              <select id="grid-transfers" required>
-                <option value="no">No gifts or transfers below fair market value</option>
-                <option value="yes">Yes — gifts, deeds, or transfers within 5 years</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <button type="submit" class="btn btn-dark">Evaluate Grid &amp; Check Approval Status</button>
-    </form>
-
-    <!-- Grid Evaluation Output -->
-    <div id="grid-result-banner" class="result-banner">
-      <h3 id="grid-result-title" style="margin: 0 0 0.5rem;"></h3>
-      <p id="grid-result-desc" style="margin: 0 0 1rem; color: inherit;"></p>
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <button type="button" class="btn btn-dark" style="width: auto;" onclick="showChecklistDirectly()">Open 2026 Document Checklist &rarr;</button>
-        <button type="button" class="btn btn-orange" style="width: auto;" onclick="openAttorneyForm()">Discuss Results with Attorney ($100)</button>
-        <button type="button" class="btn" style="width: auto;" onclick="returnToMain()">Return to Screen 1</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- OPTION 3 PANEL: Attorney Chat Email Request Form (Returns to Screen 1 on Submit) -->
-  <div id="option3-attorney-card" class="card" style="max-width: 650px; margin: 0 auto 3rem; display: none; border-color: #ea580c; border-width: 2px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-      <h2 style="margin: 0;">Option 3: Schedule Attorney Chat ($100)</h2>
-      <button type="button" onclick="returnToMain()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; font-weight: 600;">✕ Back to Screen 1</button>
-    </div>
-    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-      Submit your details below. We will email your inquiry directly to our PA Medicaid legal team to confirm your 15-minute appointment and return you to the main screen.
-    </p>
-
-    <form id="attorney-chat-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-      <input type="hidden" name="request_type" value="Option 3 - $100 Attorney Chat Appointment" />
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Full Name *</label>
-        <input type="text" id="att-name" name="name" placeholder="Jane Doe" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Email Address *</label>
-        <input type="email" id="att-email" name="email" placeholder="name@example.com" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Phone Number *</label>
-        <input type="tel" id="att-phone" name="phone" placeholder="(555) 000-0000" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Preferred Appointment Day / Time</label>
-        <input type="text" id="att-time" name="preferred_time" placeholder="e.g. Weekdays after 2 PM EST" style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1.25rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Key Questions / Care Timeline</label>
-        <textarea id="att-notes" name="notes" rows="3" placeholder="Briefly describe facility admission date, spouse at home, or denial notice..." required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;"></textarea>
-      </div>
-
-      <button type="submit" id="att-submit-btn" class="btn btn-orange">Send Email &amp; Return to Screen 1</button>
-    </form>
-  </div>
-
-  <!-- Interactive Checklist Panel -->
-  <div id="ltc-checklist-panel">
-    <div class="checklist-header">
-      <div>
-        <h2>✅ 2026 PA Medicaid LTC Requirements Checklist</h2>
-        <p class="checklist-sub">Check items off as you gather them. Your progress saves automatically in this browser.</p>
-      </div>
-      <div class="checklist-actions no-print">
-        <button type="button" class="btn" style="width: auto;" onclick="returnToMain()">&larr; Back to Main Screen</button>
-        <button type="button" class="btn btn-dark" style="width: auto;" onclick="window.print()">🖨️ Print / Save PDF</button>
-      </div>
-    </div>
-
-    <div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
-    <span class="progress-label" id="progress-label">0 of 17 items gathered (0%)</span>
-
-    <div id="checklist-items-container"></div>
-
-    <div class="checklist-footer-nav no-print">
-      <button type="button" class="btn" style="width: auto;" onclick="returnToMain()">&larr; Done / Return to Main Screen</button>
-      <span style="font-size: 0.85rem; color: var(--text-muted);">Progress is saved automatically on this device.</span>
-    </div>
-  </div>
-
-  <!-- FAQ Section with Requested Topics A, B, C, and D -->
-  <div class="faq-section" id="faq-section">
-    <h2>Frequently Asked Questions</h2>
-    
-    <div class="faq-item">
-      <h4>A. How to appeal a Pennsylvania Medicaid decision</h4>
-      <p>If your Long-Term Care Medicaid application is denied, delayed, or terminated, file a written appeal using the appeal section on your PA DHS notice with your local County Assistance Office (CAO) within <strong>30 calendar days</strong> of the mailing date on the notice to preserve your right to a Bureau of Hearings and Appeals (BHA) fair hearing.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4>B. How to apply for PA Long-Term Care Medicaid</h4>
-      <p>Applications can be submitted online via COMPASS PA (compass.state.pa.us), by mail, or in person at your county CAO. You must complete both financial verification (PA 600L) and the clinical level-of-care evaluation (Nursing Facility Clinically Eligible / NFCE assessment) to establish eligibility.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4>C. How to request required documents from banks and businesses</h4>
-      <p>When preparing for the mandatory 5-year (60-month) look-back audit, request complete historical monthly statements directly from bank branch managers or institutional records departments. For closed bank accounts, life insurance policies, or annuities, submit formal written requests for "cash surrender value verification letters" and 60-month historical transaction ledgers.</p>
-    </div>
-
-    <div class="faq-item">
-      <h4>D. Denial Information &amp; Important Deadlines</h4>
-      <p>If PA DHS issues a <strong>Notice of Denial or Termination (Form PA 162)</strong>, check the specific reason code (such as missing verification documents, excess resources, or uncompensated transfer penalty) and track these strict deadlines immediately:</p>
-      <ul>
-        <li><strong>30-Day Appeal Deadline:</strong> You have <strong>30 calendar days</strong> from the mailing date on the PA 162 notice to submit a written appeal request to the County Assistance Office.</li>
-        <li><strong>10-Day / 15-Day Benefit Continuation Deadline:</strong> If an existing Medicaid benefit is being terminated or reduced, you must appeal within <strong>10 days</strong> (or before the effective date listed on the notice, typically 15 days) to keep benefits active while the appeal is pending.</li>
-        <li><strong>Verification Cure / Reconsideration Window:</strong> If denied solely for missing documents, submitting the missing records promptly (often within 30 to 60 days depending on CAO case status) may allow reopening without starting a brand-new application.</li>
-        <li><strong>3-Month Retroactive Coverage Rule:</strong> PA Medicaid can cover unpaid nursing facility bills up to <strong>3 calendar months prior</strong> to the month of application—missing a reapplication deadline can permanently forfeit retroactive coverage for earlier months.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="trust-footer">
-    <div class="trust-bullet"><span>✓</span> Discuss your Pennsylvania long-term care timeline and questions</div>
-    <div class="trust-bullet"><span>✓</span> Review potential 5-year look-back or spousal protection issues</div>
-    <div class="trust-bullet"><span>✓</span> Decide whether DIY or full representation makes sense</div>
-  </div>
-
-  <script>
-    const paMedicaidChecklist = [
-      {
-        category: "1. Identity & Residency",
-        items: [
-          { id: "1", title: "Photo ID, Social Security card, and Medicare / health insurance cards" },
-          { id: "2", title: "Birth certificate or proof of U.S. citizenship / qualified non-citizen status" },
-          { id: "3", title: "Proof of Pennsylvania residency", note: "Utility bill, lease agreement, or county property tax bill." }
-        ]
-      },
-      {
-        category: "2. Medical & Level of Care",
-        items: [
-          { id: "4", title: "Nursing Facility Clinically Eligible (NFCE) assessment / physician certification", note: "Confirms medical need for Nursing Facility Level of Care (assistance with Activities of Daily Living)." },
-          { id: "5", title: "Current medication list, diagnoses, and hospital or rehab discharge summary" }
-        ]
-      },
-      {
-        category: "3. Income Verification (2026 PA Thresholds)",
-        items: [
-          { id: "6", title: "Social Security (SSA) current annual award letter", note: "2026 PA Special Income Limit: $2,982/mo gross for a single applicant (higher income may qualify via Medically Needy spend-down)." },
-          { id: "7", title: "Pension, annuity, VA benefit, and dividend/interest statements" },
-          { id: "8", title: "Community spouse monthly income proof (if married)", note: "2026 PA Spousal Maintenance Needs Allowance: $2,705.00 min up to $4,066.50/mo max." }
-        ]
-      },
-      {
-        category: "4. Countable Assets & Limits (2026 PA Thresholds)",
-        items: [
-          { id: "9", title: "Current balances for checking, savings, CDs, stocks, bonds, and IRAs/401(k)s", note: "2026 PA Single Asset Limit: $2,000 + $6,000 disregard ($8,000 total) if income is at or below $2,982/mo; $2,400 limit if income exceeds $2,982/mo." },
-          { id: "10", title: "Community Spouse Resource Allowance (CSRA) calculation (if married)", note: "2026 PA Community Spouse can retain 50% of countable assets ($32,532 min up to $162,660 max)." },
-          { id: "11", title: "Life insurance policies showing face value and current cash surrender value" }
-        ]
-      },
-      {
-        category: "5. Exempt Assets & Property",
-        items: [
-          { id: "12", title: "Primary residence deed, mortgage balance, and tax assessment", note: "2026 PA Home Equity Limit: $752,000 (exempt if spouse/dependent lives there or applicant has Intent to Return)." },
-          { id: "13", title: "Vehicle title and registration", note: "One motor vehicle is exempt regardless of value." },
-          { id: "14", title: "Irrevocable burial reserve contracts and cemetery plot deeds" }
-        ]
-      },
-      {
-        category: "6. 5-Year Look-Back Audit (60 Months)",
-        items: [
-          { id: "15", title: "60 months (5 full years) of statements for every open and closed bank/investment account" },
-          { id: "16", title: "Explanations and receipts for any transfers, gifts, or sales below fair market value", note: "2026 PA Penalty Divisor: $421.20/day ($12,811.50/mo) for uncompensated transfers within 60 months." },
-          { id: "17", title: "Durable Financial Power of Attorney and Healthcare POA / Living Will" }
-        ]
-      }
-    ];
-
-    function hideAllPanels() {
-      document.getElementById("option1-form-card").style.display = "none";
-      document.getElementById("option2-grid-card").style.display = "none";
-      document.getElementById("option3-attorney-card").style.display = "none";
-      document.getElementById("ltc-checklist-panel").style.display = "none";
-    }
-
-    function returnToMain(toastMessage) {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-
-      const diyBtn = document.getElementById("diy-submit-btn");
-      if (diyBtn) {
-        diyBtn.disabled = false;
-        diyBtn.textContent = "Submit & View PA LTC Checklist";
-      }
-
-      if (toastMessage) {
-        const toast = document.getElementById("status-toast");
-        document.getElementById("status-toast-msg").textContent = toastMessage;
-        toast.style.display = "flex";
-      }
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // Option 1: Open DIY Intake Form
-    function openOption1Form() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-      const card = document.getElementById("option1-form-card");
-      card.style.display = "block";
-      card.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // Option 2: Open Assessment Grid
-    function openAssessmentGrid() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-      document.getElementById("grid-result-banner").style.display = "none";
-      const card = document.getElementById("option2-grid-card");
-      card.style.display = "block";
-      card.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // Option 3: Open Attorney Chat Form
-    function openAttorneyForm() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-      const card = document.getElementById("option3-attorney-card");
-      card.style.display = "block";
-      card.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function showChecklistDirectly() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "none";
-      document.getElementById("main-options-grid").style.display = "none";
-      const panel = document.getElementById("ltc-checklist-panel");
-      panel.style.display = "block";
-      renderChecklist();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // Option 2 Grid Evaluation Logic
-    const gridForm = document.getElementById("eligibility-grid-form");
-    if (gridForm) {
-      gridForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const marital = document.getElementById("grid-marital").value;
-        const loc = document.getElementById("grid-loc").value;
-        const income = parseFloat(document.getElementById("grid-income").value) || 0;
-        const assets = parseFloat(document.getElementById("grid-assets").value) || 0;
-        const transfers = document.getElementById("grid-transfers").value;
-
-        const banner = document.getElementById("grid-result-banner");
-        const titleEl = document.getElementById("grid-result-title");
-        const descEl = document.getElementById("grid-result-desc");
-
-        banner.className = "result-banner";
-        banner.style.display = "block";
-
-        const singleAssetCap = income <= 2982 ? 8000 : 2400;
-        const marriedMaxCap = 8000 + 162660;
-
-        if (loc === "independent") {
-          banner.classList.add("not-approved");
-          titleEl.textContent = "Status: Not Likely Approved (Clinical Level of Care Not Met)";
-          descEl.textContent = "Pennsylvania Long-Term Care Medicaid requires Nursing Facility Clinically Eligible (NFCE) medical certification. Assisted living or independent care generally does not qualify unless you transition to skilled nursing or CHC waiver-level care.";
-        } else if (transfers === "yes") {
-          banner.classList.add("not-approved");
-          titleEl.textContent = "Status: At Risk of Denial / Transfer Penalty Period";
-          descEl.textContent = "Gifts or transfers within the 60-month look-back window trigger a PA DHS penalty period ($421.20/day in 2026) where Medicaid will not pay for nursing care. Legal review is strongly recommended before filing.";
-        } else if (marital === "single" && assets <= singleAssetCap && income <= 2982) {
-          banner.classList.add("approved");
-          titleEl.textContent = "Status: Likely Approved (Meets 2026 PA Income & Asset Limits)";
-          descEl.textContent = `Your reported income ($${income.toLocaleString()}/mo) is within the $2,982/mo limit and countable assets ($${assets.toLocaleString()}) are within the $${singleAssetCap.toLocaleString()} limit with no 5-year transfers. Proceed to gather your 60-month verification documents.`;
-        } else if (marital === "single" && assets <= singleAssetCap && income > 2982) {
-          banner.classList.add("conditional");
-          titleEl.textContent = "Status: Conditional Approval (Medically Needy Spend-Down Required)";
-          descEl.textContent = `Because monthly gross income ($${income.toLocaleString()}) exceeds $2,982/mo, PA DHS applies the stricter $2,400 asset cap and requires your monthly income to be applied toward nursing facility costs under Medically Needy rules.`;
-        } else if (marital === "married" && assets <= marriedMaxCap) {
-          banner.classList.add("conditional");
-          titleEl.textContent = "Status: Conditional Approval (Spousal Impoverishment Assessment Needed)";
-          descEl.textContent = `Married couples qualify for the Community Spouse Resource Allowance (up to $162,660 in 2026) plus the $8,000 applicant allowance. A formal spousal asset snapshot (PA 1572) is needed to lock in protected spousal assets.`;
-        } else {
-          banner.classList.add("not-approved");
-          titleEl.textContent = "Status: Not Currently Approved (Excess Countable Assets)";
-          descEl.textContent = `Countable assets of $${assets.toLocaleString()} exceed the 2026 PA limit. You will likely receive a denial until assets are properly spent down on exempt items or protected through spousal/legal planning.`;
-        }
-
-        banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      });
-    }
-
-    // Option 3 Attorney Chat Submit -> Sends Email & Returns to Screen 1
-    const attForm = document.getElementById("attorney-chat-form");
-    if (attForm) {
-      attForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById("att-submit-btn");
-        btn.disabled = true;
-        btn.textContent = "Sending Email...";
-
-        const name = document.getElementById("att-name").value;
-        const email = document.getElementById("att-email").value;
-        const phone = document.getElementById("att-phone").value;
-        const prefTime = document.getElementById("att-time").value;
-        const notes = document.getElementById("att-notes").value;
-
-        try {
-          const isPlaceholder = attForm.action.includes("YOUR_FORMSPREE_ID");
-          if (!isPlaceholder) {
-            await fetch(attForm.action, {
-              method: attForm.method,
-              body: new FormData(attForm),
-              headers: { "Accept": "application/json" }
-            });
-          } else {
-            const subject = encodeURIComponent(`Attorney Chat Request ($100) - ${name}`);
-            const body = encodeURIComponent(
-              `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nPreferred Time: ${prefTime}\n\nNotes/Questions:\n${notes}`
-            );
-            window.location.href = `mailto:support@medicaida2z.com?subject=${subject}&body=${body}`;
-          }
-        } catch (err) {
-          // Proceed gracefully back to Screen 1
-        } finally {
-          btn.disabled = false;
-          btn.textContent = "Send Email & Return to Screen 1";
-          attForm.reset();
-          returnToMain(`Thank you, ${name}. Your Attorney Chat email request has been prepared/sent and we returned you to Screen 1.`);
-        }
-      });
-    }
-
-    // Option 1 DIY Submit -> Unlocks Checklist
-    const diyForm = document.getElementById("diy-intake-form");
-    if (diyForm) {
-      diyForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById("diy-submit-btn");
-        const errorEl = document.getElementById("diy-form-error");
-        btn.disabled = true;
-        btn.textContent = "Processing...";
-        errorEl.style.display = "none";
-
-        try {
-          const isPlaceholder = diyForm.action.includes("YOUR_FORMSPREE_ID");
-          let success = isPlaceholder;
-          
-          if (!isPlaceholder) {
-            const response = await fetch(diyForm.action, {
-              method: diyForm.method,
-              body: new FormData(diyForm),
-              headers: { "Accept": "application/json" }
-            });
-            success = response.ok;
-          }
-
-          if (success) {
-            showChecklistDirectly();
-          } else {
-            throw new Error("Submission failed");
-          }
-        } catch (err) {
-          btn.disabled = false;
-          btn.textContent = "Submit & View PA LTC Checklist";
-          errorEl.style.display = "block";
-        }
-      });
-    }
-
-    function renderChecklist() {
-      const container = document.getElementById("checklist-items-container");
-      if (!container) return;
-      const saved = JSON.parse(localStorage.getItem("pa_ltc_checklist_v24") || "{}");
-      container.innerHTML = "";
-
-      paMedicaidChecklist.forEach(group => {
-        const catEl = document.createElement("div");
-        catEl.className = "checklist-category";
-        catEl.textContent = group.category;
-        container.appendChild(catEl);
-
-        group.items.forEach(item => {
-          const isChecked = !!saved[item.id];
-          const label = document.createElement("label");
-          label.className = "checklist-item" + (isChecked ? " checked" : "");
-          label.innerHTML = `
-            <input type="checkbox" data-id="${item.id}" ${isChecked ? "checked" : ""} />
-            <div class="checklist-text">
-              <strong>${item.title}</strong>
-              ${item.note ? `<span class="checklist-note">${item.note}</span>` : ""}
-            </div>
-          `;
-          label.querySelector("input").addEventListener("change", (e) => {
-            saved[item.id] = e.target.checked;
-            localStorage.setItem("pa_ltc_checklist_v24", JSON.stringify(saved));
-            label.classList.toggle("checked", e.target.checked);
-            updateProgress();
-          });
-          container.appendChild(label);
-        });
-      });
-      updateProgress();
-    }
-
-    function updateProgress() {
-      const boxes = document.querySelectorAll('#checklist-items-container input[type="checkbox"]');
-      const checked = document.querySelectorAll('#checklist-items-container input[type="checkbox"]:checked').length;
-      const total = boxes.length;
-      const pct = total ? Math.round((checked / total) * 100) : 0;
-      const fillEl = document.getElementById("progress-fill");
-      const labelEl = document.getElementById("progress-label");
-      if (fillEl) fillEl.style.width = pct + "%";
-      if (labelEl) labelEl.textContent = `${checked} of ${total} items gathered (${pct}%)`;
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedicaidABC v2.5 | Pennsylvania Long-Term Care & Medicaid Navigation</title>
+  <title>MedicaidABC v2.6 | Pennsylvania Long-Term Care & Medicaid Navigation</title>
   <style>
     :root {
       --bg-color: #fcfbf9;
@@ -1327,7 +389,7 @@
 </head>
 <body>
 
-  <div class="preview-bar">MEDICAIDABC v2.5 • 2027 GRAND OPENING &amp; WAITING LIST</div>
+  <div class="preview-bar">MEDICAIDABC v2.6 • 2027 GRAND OPENING &amp; WAITING LIST</div>
 
   <div id="status-toast" class="status-toast">
     <span id="status-toast-msg">Your Attorney Chat consultation request has been sent!</span>
@@ -1335,7 +397,7 @@
   </div>
 
   <header>
-    <div class="logo" onclick="returnToMain()">Medicaid<span>ABC</span> (v2.5)</div>
+    <div class="logo" onclick="returnToMain()">Medicaid<span>ABC</span> (v2.6)</div>
     <nav>
       <a onclick="returnToMain()">Three Ways to Start</a>
       <a onclick="openAssessmentGrid()">Assessment Grid</a>
@@ -1359,7 +421,7 @@
       <span class="card-badge">Free</span>
       <div class="card-num">01</div>
       <h3>Do It Yourself</h3>
-      <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
+      <p>Request our organized Pennsylvania long-term care document checklist via Formspree so you know every statement and record PA DHS asks for.</p>
       <button type="button" class="btn" onclick="openOption1Form()">Get Free DIY Checklist &rarr;</button>
     </div>
 
@@ -1377,7 +439,7 @@
       <span class="card-badge" style="background: #fee2e2; color: #991b1b;">$100 flat fee</span>
       <div class="card-num">03</div>
       <h3>Attorney Chat</h3>
-      <p>Send your contact info and questions to schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney.</p>
+      <p>Send your contact info and questions via Formspree to schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney.</p>
       <button type="button" class="btn btn-orange" onclick="openAttorneyForm()">Schedule Attorney Chat ($100) &rarr;</button>
     </div>
 
@@ -1390,7 +452,7 @@
       <button type="button" onclick="returnToMain()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; font-weight: 600;">✕ Back to Screen 1</button>
     </div>
     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-      Enter your details to instantly unlock the 2026 PA LTC checklist and receive a copy via Formspree.
+      Enter your details to instantly unlock the 2026 PA LTC checklist and submit via Formspree.
     </p>
 
     <form id="diy-intake-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
@@ -1409,7 +471,7 @@
       </div>
 
       <button type="submit" id="diy-submit-btn" class="btn btn-dark">Submit &amp; View PA LTC Checklist</button>
-      <p id="diy-form-error" style="color: #dc2626; display: none; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 500;">Submission error. Please check your Formspree endpoint or network connection.</p>
+      <p id="diy-form-error" style="color: #dc2626; display: none; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 500;">Formspree submission error. Please check your Formspree endpoint or network connection.</p>
     </form>
   </div>
 
@@ -1589,300 +651,115 @@
     <div class="trust-bullet"><span>✓</span> Decide whether DIY or full representation makes sense</div>
   </div>
 
-  <script>
-    const paMedicaidChecklist = [
-      {
-        category: "1. Identity & Residency",
-        items: [
-          { id: "1", title: "Photo ID, Social Security card, and Medicare / health insurance cards" },
-          { id: "2", title: "Birth certificate or proof of U.S. citizenship / qualified non-citizen status" },
-          { id: "3", title: "Proof of Pennsylvania residency", note: "Utility bill, lease agreement, or county property tax bill." }
-        ]
-      },
-      {
-        category: "2. Medical & Level of Care",
-        items: [
-          { id: "4", title: "Nursing Facility Clinically Eligible (NFCE) assessment / physician certification", note: "Confirms medical need for Nursing Facility Level of Care (assistance with Activities of Daily Living)." },
-          { id: "5", title: "Current medication list, diagnoses, and hospital or rehab discharge summary" }
-        ]
-      },
-      {
-        category: "3. Income Verification (2026 PA Thresholds)",
-        items: [
-          { id: "6", title: "Social Security (SSA) current annual award letter", note: "2026 PA Special Income Limit: $2,982/mo gross for a single applicant (higher income may qualify via Medically Needy spend-down)." },
-          { id: "7", title: "Pension, annuity, VA benefit, and dividend/interest statements" },
-          { id: "8", title: "Community spouse monthly income proof (if married)", note: "2026 PA Spousal Maintenance Needs Allowance: $2,705.00 min up to $4,066.50/mo max." }
-        ]
-      },
-      {
-        category: "4. Countable Assets & Limits (2026 PA Thresholds)",
-        items: [
-          { id: "9", title: "Current balances for checking, savings, CDs, stocks, bonds, and IRAs/401(k)s", note: "2026 PA Single Asset Limit: $2,000 + $6,000 disregard ($8,000 total) if income is at or below $2,982/mo; $2,400 limit if income exceeds $2,982/mo." },
-          { id: "10", title: "Community Spouse Resource Allowance (CSRA) calculation (if married)", note: "2026 PA Community Spouse can retain 50% of countable assets ($32,532 min up to $162,660 max)." },
-          { id: "11", title: "Life insurance policies showing face value and current cash surrender value" }
-        ]
-      },
-      {
-        category: "5. Exempt Assets & Property",
-        items: [
-          { id: "12", title: "Primary residence deed, mortgage balance, and tax assessment", note: "2026 PA Home Equity Limit: $752,000 (exempt if spouse/dependent lives there or applicant has Intent to Return)." },
-          { id: "13", title: "Vehicle title and registration", note: "One motor vehicle is exempt regardless of value." },
-          { id: "14", title: "Irrevocable burial reserve contracts and cemetery plot deeds" }
-        ]
-      },
-      {
-        category: "6. 5-Year Look-Back Audit (60 Months)",
-        items: [
-          { id: "15", title: "60 months (5 full years) of statements for every open and closed bank/investment account" },
-          { id: "16", title: "Explanations and receipts for any transfers, gifts, or sales below fair market value", note: "2026 PA Penalty Divisor: $421.20/day ($12,811.50/mo) for uncompensated transfers within 60 months." },
-          { id: "17", title: "Durable Financial Power of Attorney and Healthcare POA / Living Will" }
-        ]
-      }
-    ];
-
-    function hideAllPanels() {
-      document.getElementById("option1-form-card").style.display = "none";
-      document.getElementById("option2-grid-card").style.display = "none";
-      document.getElementById("option3-attorney-card").style.display = "none";
-      document.getElementById("ltc-checklist-panel").style.display = "none";
-    }
-
-    function returnToMain(toastMessage) {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-
-      const diyBtn = document.getElementById("diy-submit-btn");
-      if (diyBtn) {
-        diyBtn.disabled = false;
-        diyBtn.textContent = "Submit & View PA LTC Checklist";
-      }
-
-      if (toastMessage) {
-        const toast = document.getElementById("status-toast");
-        document.getElementById("status-toast-msg").textContent = toastMessage;
-        toast.style.display = "flex";
-      }
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // Option 1: Open DIY Intake Form
-    function openOption1Form() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-      const card = document.getElementById("option1-form-card");
-      card.style.display = "block";
-      card.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // Option 2: Open Assessment Grid
-    function openAssessmentGrid() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-      document.getElementById("grid-result-banner").style.display = "none";
-      const card = document.getElementById("option2-grid-card");
-      card.style.display = "block";
-      card.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // Option 3: Open Attorney Chat Form
-    function openAttorneyForm() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "block";
-      document.getElementById("main-options-grid").style.display = "grid";
-      document.getElementById("att-form-error").style.display = "none";
-      const card = document.getElementById("option3-attorney-card");
-      card.style.display = "block";
-      card.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function showChecklistDirectly() {
-      hideAllPanels();
-      document.getElementById("hero-section").style.display = "none";
-      document.getElementById("main-options-grid").style.display = "none";
-      const panel = document.getElementById("ltc-checklist-panel");
-      panel.style.display = "block";
-      renderChecklist();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // Option 2 Grid Evaluation Logic
-    const gridForm = document.getElementById("eligibility-grid-form");
-    if (gridForm) {
-      gridForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        const marital = document.getElementById("grid-marital").value;
-        const loc = document.getElementById("grid-loc").value;
-        const income = parseFloat(document.getElementById("grid-income").value) || 0;
-        const assets = parseFloat(document.getElementById("grid-assets").value) || 0;
-        const transfers = document.getElementById("grid-transfers").value;
-
-        const banner = document.getElementById("grid-result-banner");
-        const titleEl = document.getElementById("grid-result-title");
-        const descEl = document.getElementById("grid-result-desc");
-
-        banner.className = "result-banner";
-        banner.style.display = "block";
-
-        const singleAssetCap = income <= 2982 ? 8000 : 2400;
-        const marriedMaxCap = 8000 + 162660;
-
-        if (loc === "independent") {
-          banner.classList.add("not-approved");
-          titleEl.textContent = "Status: Not Likely Approved (Clinical Level of Care Not Met)";
-          descEl.textContent = "Pennsylvania Long-Term Care Medicaid requires Nursing Facility Clinically Eligible (NFCE) medical certification. Assisted living or independent care generally does not qualify unless you transition to skilled nursing or CHC waiver-level care.";
-        } else if (transfers === "yes") {
-          banner.classList.add("not-approved");
-          titleEl.textContent = "Status: At Risk of Denial / Transfer Penalty Period";
-          descEl.textContent = "Gifts or transfers within the 60-month look-back window trigger a PA DHS penalty period ($421.20/day in 2026) where Medicaid will not pay for nursing care. Legal review is strongly recommended before filing.";
-        } else if (marital === "single" && assets <= singleAssetCap && income <= 2982) {
-          banner.classList.add("approved");
-          titleEl.textContent = "Status: Likely Approved (Meets 2026 PA Income & Asset Limits)";
-          descEl.textContent = `Your reported income ($${income.toLocaleString()}/mo) is within the $2,982/mo limit and countable assets ($${assets.toLocaleString()}) are within the $${singleAssetCap.toLocaleString()} limit with no 5-year transfers. Proceed to gather your 60-month verification documents.`;
-        } else if (marital === "single" && assets <= singleAssetCap && income > 2982) {
-          banner.classList.add("conditional");
-          titleEl.textContent = "Status: Conditional Approval (Medically Needy Spend-Down Required)";
-          descEl.textContent = `Because monthly gross income ($${income.toLocaleString()}) exceeds $2,982/mo, PA DHS applies the stricter $2,400 asset cap and requires your monthly income to be applied toward nursing facility costs under Medically Needy rules.`;
-        } else if (marital === "married" && assets <= marriedMaxCap) {
-          banner.classList.add("conditional");
-          titleEl.textContent = "Status: Conditional Approval (Spousal Impoverishment Assessment Needed)";
-          descEl.textContent = `Married couples qualify for the Community Spouse Resource Allowance (up to $162,660 in 2026) plus the $8,000 applicant allowance. A formal spousal asset snapshot (PA 1572) is needed to lock in protected spousal assets.`;
-        } else {
-          banner.classList.add("not-approved");
-          titleEl.textContent = "Status: Not Currently Approved (Excess Countable Assets)";
-          descEl.textContent = `Countable assets of $${assets.toLocaleString()} exceed the 2026 PA limit. You will likely receive a denial until assets are properly spent down on exempt items or protected through spousal/legal planning.`;
-        }
-
-        banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      });
-    }
-
-    // Option 3 Attorney Chat Submit -> Submits directly to Formspree & Returns to Screen 1
-    const attForm = document.getElementById("attorney-chat-form");
-    if (attForm) {
-      attForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById("att-submit-btn");
-        const errorEl = document.getElementById("att-form-error");
-        const name = document.getElementById("att-name").value;
-
-        btn.disabled = true;
-        btn.textContent = "Submitting to Formspree...";
-        errorEl.style.display = "none";
-
-        try {
-          const isPlaceholder = attForm.action.includes("YOUR_FORMSPREE_ID");
-          let success = isPlaceholder;
-
-          if (!isPlaceholder) {
-            const response = await fetch(attForm.action, {
-              method: attForm.method,
-              body: new FormData(attForm),
-              headers: { "Accept": "application/json" }
-            });
-            success = response.ok;
-          }
-
-          if (success) {
-            attForm.reset();
-            returnToMain(`Thank you, ${name}. Your Attorney Chat request has been submitted via Formspree and we returned you to Screen 1.`);
-          } else {
-            throw new Error("Formspree submission failed");
-          }
-        } catch (err) {
-          errorEl.style.display = "block";
-        } finally {
-          btn.disabled = false;
-          btn.textContent = "Submit Request & Return to Screen 1";
-        }
-      });
-    }
-
-    // Option 1 DIY Submit -> Submits to Formspree & Unlocks Checklist
-    const diyForm = document.getElementById("diy-intake-form");
-    if (diyForm) {
-      diyForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById("diy-submit-btn");
-        const errorEl = document.getElementById("diy-form-error");
-        btn.disabled = true;
-        btn.textContent = "Processing...";
-        errorEl.style.display = "none";
-
-        try {
-          const isPlaceholder = diyForm.action.includes("YOUR_FORMSPREE_ID");
-          let success = isPlaceholder;
-          
-          if (!isPlaceholder) {
-            const response = await fetch(diyForm.action, {
-              method: diyForm.method,
-              body: new FormData(diyForm),
-              headers: { "Accept": "application/json" }
-            });
-            success = response.ok;
-          }
-
-          if (success) {
-            showChecklistDirectly();
-          } else {
-            throw new Error("Submission failed");
-          }
-        } catch (err) {
-          btn.disabled = false;
-          btn.textContent = "Submit & View PA LTC Checklist";
-          errorEl.style.display = "block";
-        }
-      });
-    }
-
-    function renderChecklist() {
-      const container = document.getElementById("checklist-items-container");
-      if (!container) return;
-      const saved = JSON.parse(localStorage.getItem("pa_ltc_checklist_v25") || "{}");
-      container.innerHTML = "";
-
-      paMedicaidChecklist.forEach(group => {
-        const catEl = document.createElement("div");
-        catEl.className = "checklist-category";
-        catEl.textContent = group.category;
-        container.appendChild(catEl);
-
-        group.items.forEach(item => {
-          const isChecked = !!saved[item.id];
-          const label = document.createElement("label");
-          label.className = "checklist-item" + (isChecked ? " checked" : "");
-          label.innerHTML = `
-            <input type="checkbox" data-id="${item.id}" ${isChecked ? "checked" : ""} />
-            <div class="checklist-text">
-              <strong>${item.title}</strong>
-              ${item.note ? `<span class="checklist-note">${item.note}</span>` : ""}
-            </div>
-          `;
-          label.querySelector("input").addEventListener("change", (e) => {
-            saved[item.id] = e.target.checked;
-            localStorage.setItem("pa_ltc_checklist_v25", JSON.stringify(saved));
-            label.classList.toggle("checked", e.target.checked);
-            updateProgress();
-          });
-          container.appendChild(label);
-        });
-      });
-      updateProgress();
-    }
-
-    function updateProgress() {
-      const boxes = document.querySelectorAll('#checklist-items-container input[type="checkbox"]');
-      const checked = document.querySelectorAll('#checklist-items-container input[type="checkbox"]:checked').length;
-      const total = boxes.length;
-      const pct = total ? Math.round((checked / total) * 100) : 0;
-      const fillEl = document.getElementById("progress-fill");
-      const labelEl = document.getElementById("progress-label");
-      if (fillEl) fillEl.style.width = pct + "%";
-      if (labelEl) labelEl.textContent = `${checked} of ${total} items gathered (${pct}%)`;
-    }
-  </script>
-</body>
-</html>
+  <!-- Checklist Component Widget Container -->
+  <TemplateWidget templateName="checklist" component_placeholder_id="im_a5c635b0e5fcb75a" header_title="Pennsylvania Medicaid LTC Requirements Checklist">
+```json
+{
+  "categories": [
+    "Identity & Residency",
+    "Medical & Level of Care",
+    "Income Verification",
+    "Countable Assets & Limits (2026)",
+    "Exempt Assets & Property",
+    "5-Year Look-Back Audit (60 Months)"
+  ],
+  "items": [
+    {
+      "id": "1",
+      "label": "Photo ID, Social Security card, and Medicare / health insurance cards",
+      "category": "Identity & Residency",
+      "checked": false
+    },
+    {
+      "id": "2",
+      "label": "Birth certificate or proof of U.S. citizenship / qualified non-citizen status",
+      "category": "Identity & Residency",
+      "checked": false
+    },
+    {
+      "id": "3",
+      "label": "Proof of Pennsylvania residency (utility bill, lease, or property tax bill)",
+      "category": "Identity & Residency",
+      "checked": false
+    },
+    {
+      "id": "4",
+      "label": "Nursing Facility Clinically Eligible (NFCE) assessment / physician certification",
+      "sublines": ["Confirms need for Nursing Facility Level of Care (assistance with ADLs)"],
+      "category": "Medical & Level of Care",
+      "checked": false
+    },
+    {
+      "id": "5",
+      "label": "Current medication list, diagnoses, and hospital/rehab discharge summary",
+      "category": "Medical & Level of Care",
+      "checked": false
+    },
+    {
+      "id": "6",
+      "label": "Social Security (SSA) current annual award letter",
+      "sublines": ["2026 PA Special Income Limit: $2,982/mo gross for a single applicant (higher income may qualify via Medically Needy spend-down)"],
+      "category": "Income Verification",
+      "checked": false
+    },
+    {
+      "id": "7",
+      "label": "Pension, annuity, VA benefit, and dividend/interest statements",
+      "category": "Income Verification",
+      "checked": false
+    },
+    {
+      "id": "8",
+      "label": "Community spouse monthly income proof (if married)",
+      "sublines": ["2026 PA Spousal Maintenance Needs Allowance: $2,705.00 min up to $4,066.50/mo max"],
+      "category": "Income Verification",
+      "checked": false
+    },
+    {
+      "id": "9",
+      "label": "Current balances for checking, savings, CDs, stocks, bonds, and IRAs/401(k)s",
+      "sublines": ["2026 PA Single Asset Limit: $2,000 + $6,000 disregard ($8,000 total) if income is at or below $2,982/mo; $2,400 limit if income exceeds $2,982/mo"],
+      "category": "Countable Assets & Limits (2026)",
+      "checked": false
+    },
+    {
+      "id": "10",
+      "label": "Community Spouse Resource Allowance (CSRA) calculation (if married)",
+      "sublines": ["2026 PA Community Spouse can retain 50% of countable assets ($32,532 min up to $162,660 max)"],
+      "category": "Countable Assets & Limits (2026)",
+      "checked": false
+    },
+    {
+      "id": "11",
+      "label": "Life insurance policies showing face value and current cash surrender value",
+      "category": "Countable Assets & Limits (2026)",
+      "checked": false
+    },
+    {
+      "id": "12",
+      "label": "Primary residence deed, mortgage balance, and tax assessment",
+      "sublines": ["2026 PA Home Equity Limit: $752,000 (exempt if spouse/dependent lives there or applicant has Intent to Return)"],
+      "category": "Exempt Assets & Property",
+      "checked": false
+    },
+    {
+      "id": "13",
+      "label": "Vehicle title and registration (one vehicle is exempt)",
+      "category": "Exempt Assets & Property",
+      "checked": false
+    },
+    {
+      "id": "14",
+      "label": "Irrevocable burial reserve contracts and cemetery plot deeds",
+      "category": "Exempt Assets & Property",
+      "checked": false
+    },
+    {
+      "id": "15",
+      "label": "60 months (5 full years) of statements for every open and closed bank/investment account",
+      "category": "5-Year Look-Back Audit (60 Months)",
+      "checked": false
+    },
+    {
+      "id": "16",
+      "label": "Explanation and receipts for any transfers, gifts, or sales
