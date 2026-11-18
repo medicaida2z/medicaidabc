@@ -35,20 +35,24 @@
     header h1 { margin: 0 0 0.5rem; font-size: 1.8rem; }
     header p { margin: 0; font-size: 1rem; opacity: 0.9; }
 
+    /* Restored Multi-Column Grid Container */
     .container {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
     }
 
-    /* Lead Form Card */
+    /* Lead Form & Content Cards */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 10px;
       padding: 2rem;
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-      margin-bottom: 2rem;
     }
     .card h2 { margin-top: 0; color: var(--primary); font-size: 1.3rem; }
     .form-group { margin-bottom: 1.25rem; }
@@ -74,9 +78,10 @@
     .btn-submit:hover { background: var(--primary-hover); }
     #form-error { color: #dc2626; display: none; margin-top: 0.75rem; font-weight: 500; font-size: 0.9rem; }
 
-    /* Post-Submission Interactive Checklist Panel */
+    /* Post-Submission Interactive Checklist Panel (Spans full grid width when active) */
     #ltc-checklist-panel {
       display: none;
+      grid-column: 1 / -1;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 10px;
@@ -168,17 +173,32 @@
 
   <div class="container">
     
-    <!-- Lead Intake Form Card -->
+    <!-- Info Card 1: 2026 Thresholds Overview -->
+    <div class="card">
+      <h2>2026 PA Financial Thresholds</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        Key metrics governing Pennsylvania Long-Term Care Medicaid eligibility:
+      </p>
+      <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-main);">
+        <li><strong>Income Cap:</strong> $2,982 / month</li>
+        <li><strong>Single Asset Limit:</strong> $8,000</li>
+        <li><strong>CSRA (Spouse):</strong> $32,532 – $162,660</li>
+        <li><strong>Home Equity Cap:</strong> $752,000</li>
+        <li><strong>Penalty Divisor:</strong> $421.20 / day</li>
+      </ul>
+    </div>
+
+    <!-- Lead Intake Form Card (Center/Main Box) -->
     <div class="card" id="form-card">
-      <h2>Get Your PA Medicaid Long-Term Care Assessment &amp; Checklist</h2>
-      <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.25rem;">
-        Enter your details below to instantly access the official 2026 PA Long-Term Care documentation checklist and queue your case review.
+      <h2>Request Assessment</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+        Enter your details to instantly unlock the interactive 2026 LTC checklist.
       </p>
 
       <form id="lead-intake-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
         <div class="form-group">
           <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="e.g., Jane Doe" required />
+          <input type="text" id="name" name="name" placeholder="Jane Doe" required />
         </div>
         <div class="form-group">
           <label for="email">Email Address</label>
@@ -189,21 +209,29 @@
           <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
         </div>
         <div class="form-group">
-          <label for="notes">Brief Situation / Care Status</label>
-          <textarea id="notes" name="notes" rows="3" placeholder="e.g., Loved one entering skilled nursing facility in PA..."></textarea>
+          <label for="notes">Brief Situation</label>
+          <textarea id="notes" name="notes" rows="2" placeholder="Entering SNF in PA..."></textarea>
         </div>
 
-        <button type="submit" id="submit-btn" class="btn-submit">Submit &amp; View PA LTC Checklist</button>
-        <p id="form-error">There was an error submitting your request. Please check your connection and try again.</p>
+        <button type="submit" id="submit-btn" class="btn-submit">Submit &amp; View Checklist</button>
+        <p id="form-error">Submission error. Please check your network.</p>
       </form>
     </div>
 
-    <!-- Hidden Checklist Revealed After Form Submission -->
+    <!-- Info Card 3: Portal Benefits -->
+    <div class="card">
+      <h2>Why MedicaidABC?</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.4;">
+        We transition complex 60-month look-back audits and asset verification into a clear, client-side progress tracker with auto-save and print-to-PDF support.
+      </p>
+    </div>
+
+    <!-- Hidden Checklist Panel (Expands to fill grid upon submission) -->
     <div id="ltc-checklist-panel">
       <div class="checklist-header">
         <div>
           <h2>✅ Request Received — 2026 PA Medicaid LTC Checklist</h2>
-          <p class="checklist-sub">Check items off as you gather them. Your progress saves automatically in this browser.</p>
+          <p class="checklist-sub">Check items off as you gather them. Progress saves automatically.</p>
         </div>
         <button type="button" class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
       </div>
@@ -332,8 +360,10 @@
         });
 
         if (response.ok) {
-          document.getElementById("form-card").style.display = "none";
-          document.getElementById("ltc-checklist-panel").style.display = "block";
+          // Hide side cards and form card, then reveal checklist across full grid
+          document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+          const panel = document.getElementById("ltc-checklist-panel");
+          panel.style.display = "block";
           renderChecklist();
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
@@ -341,7 +371,7 @@
         }
       } catch (err) {
         btn.disabled = false;
-        btn.textContent = "Submit & View PA LTC Checklist";
+        btn.textContent = "Submit & View Checklist";
         errorEl.style.display = "block";
       }
     });
