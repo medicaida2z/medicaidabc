@@ -184,7 +184,7 @@
     }
     .btn-orange:hover { background: #c2410c; }
 
-    /* Interactive Checklist Panel (Replaces grid when form is submitted) */
+    /* Interactive Checklist Panel */
     #ltc-checklist-panel {
       display: none;
       max-width: 900px;
@@ -242,7 +242,7 @@
     .checklist-item.checked .checklist-text strong { text-decoration: line-through; color: var(--text-muted); }
     .checklist-note { display: block; font-size: 0.83rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-    /* Footer Trust Bullets */
+    /* Trust Footer Bullets */
     .trust-footer {
       max-width: 900px;
       margin: 0 auto 4rem;
@@ -295,7 +295,7 @@
       <div class="card-num">01</div>
       <h3>Do It Yourself</h3>
       <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
-      <button type="button" class="btn" onclick="openIntakeForm('diy')">Get Free DIY Checklist &rarr;</button>
+      <button type="button" class="btn" onclick="openIntakeForm()">Get Free DIY Checklist &rarr;</button>
     </div>
 
     <!-- Box 2: Free Assessment Grid -->
@@ -304,7 +304,7 @@
       <div class="card-num">02</div>
       <h3>Free Assessment</h3>
       <p>Select your situation in the single-page grid below to generate a tailored PA checklist instantly, and optionally send it for review.</p>
-      <button type="button" class="btn btn-dark" onclick="openIntakeForm('assessment')">Use Assessment Grid &darr;</button>
+      <button type="button" class="btn btn-dark" onclick="openIntakeForm()">Use Assessment Grid &darr;</button>
     </div>
 
     <!-- Box 3: Attorney Chat -->
@@ -318,7 +318,7 @@
 
   </div>
 
-  <!-- Hidden Intake Form Modal / Card Section (Toggled on Box 1 or 2 click) -->
+  <!-- Lead Intake Form Card (Revealed when Option 1 or 2 is clicked) -->
   <div id="intake-form-card" class="card" style="max-width: 600px; margin: 0 auto 3rem; display: none;">
     <h2>Enter Your Details to Unlock Checklist</h2>
     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
@@ -422,13 +422,15 @@
       }
     ];
 
-    function openIntakeForm(type) {
-      document.getElementById("intake-form-card").style.display = "block";
-      document.getElementById("intake-form-card").scrollIntoView({ behavior: "smooth" });
+    function openIntakeForm() {
+      const formCard = document.getElementById("intake-form-card");
+      formCard.style.display = "block";
+      formCard.scrollIntoView({ behavior: "smooth" });
     }
 
     function renderChecklist() {
       const container = document.getElementById("checklist-items-container");
+      if (!container) return;
       const saved = JSON.parse(localStorage.getItem("pa_ltc_checklist_v23") || "{}");
       container.innerHTML = "";
 
@@ -466,46 +468,50 @@
       const checked = document.querySelectorAll('#checklist-items-container input[type="checkbox"]:checked').length;
       const total = boxes.length;
       const pct = total ? Math.round((checked / total) * 100) : 0;
-      document.getElementById("progress-fill").style.width = pct + "%";
-      document.getElementById("progress-label").textContent = `${checked} of ${total} items gathered (${pct}%)`;
+      const fillEl = document.getElementById("progress-fill");
+      const labelEl = document.getElementById("progress-label");
+      if (fillEl) fillEl.style.width = pct + "%";
+      if (labelEl) labelEl.textContent = `${checked} of ${total} items gathered (${pct}%)`;
     }
 
     // Intercept Formspree submission via AJAX
     const form = document.getElementById("lead-intake-form");
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const btn = document.getElementById("submit-btn");
-      const errorEl = document.getElementById("form-error");
-      btn.disabled = true;
-      btn.textContent = "Processing...";
-      errorEl.style.display = "none";
+    if (form) {
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById("submit-btn");
+        const errorEl = document.getElementById("form-error");
+        btn.disabled = true;
+        btn.textContent = "Processing...";
+        errorEl.style.display = "none";
 
-      try {
-        const response = await fetch(form.action, {
-          method: form.method,
-          body: new FormData(form),
-          headers: { "Accept": "application/json" }
-        });
+        try {
+          const response = await fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: { "Accept": "application/json" }
+          });
 
-        if (response.ok) {
-          // Hide top grid and intake form, reveal interactive checklist
-          document.getElementById("main-grid").style.display = "none";
-          document.getElementById("intake-form-card").style.display = "none";
-          document.querySelector(".hero").style.display = "none";
-          
-          const panel = document.getElementById("ltc-checklist-panel");
-          panel.style.display = "block";
-          renderChecklist();
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
-          throw new Error("Submission failed");
+          // Proceed to render checklist on success (or fallback for testing if Formspree ID is unconfigured)
+          if (response.ok || form.action.includes("YOUR_FORMSPREE_ID")) {
+            document.getElementById("main-grid").style.display = "none";
+            document.getElementById("intake-form-card").style.display = "none";
+            document.querySelector(".hero").style.display = "none";
+            
+            const panel = document.getElementById("ltc-checklist-panel");
+            panel.style.display = "block";
+            renderChecklist();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            throw new Error("Submission failed");
+          }
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = "Submit & View PA LTC Checklist";
+          errorEl.style.display = "block";
         }
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = "Submit & View PA LTC Checklist";
-        errorEl.style.display = "block";
-      }
-    });
+      });
+    }
   </script>
 </body>
 </html>
