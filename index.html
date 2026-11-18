@@ -651,115 +651,300 @@
     <div class="trust-bullet"><span>✓</span> Decide whether DIY or full representation makes sense</div>
   </div>
 
-  <!-- Checklist Component Widget Container -->
-  <TemplateWidget templateName="checklist" component_placeholder_id="im_a5c635b0e5fcb75a" header_title="Pennsylvania Medicaid LTC Requirements Checklist">
-```json
-{
-  "categories": [
-    "Identity & Residency",
-    "Medical & Level of Care",
-    "Income Verification",
-    "Countable Assets & Limits (2026)",
-    "Exempt Assets & Property",
-    "5-Year Look-Back Audit (60 Months)"
-  ],
-  "items": [
-    {
-      "id": "1",
-      "label": "Photo ID, Social Security card, and Medicare / health insurance cards",
-      "category": "Identity & Residency",
-      "checked": false
-    },
-    {
-      "id": "2",
-      "label": "Birth certificate or proof of U.S. citizenship / qualified non-citizen status",
-      "category": "Identity & Residency",
-      "checked": false
-    },
-    {
-      "id": "3",
-      "label": "Proof of Pennsylvania residency (utility bill, lease, or property tax bill)",
-      "category": "Identity & Residency",
-      "checked": false
-    },
-    {
-      "id": "4",
-      "label": "Nursing Facility Clinically Eligible (NFCE) assessment / physician certification",
-      "sublines": ["Confirms need for Nursing Facility Level of Care (assistance with ADLs)"],
-      "category": "Medical & Level of Care",
-      "checked": false
-    },
-    {
-      "id": "5",
-      "label": "Current medication list, diagnoses, and hospital/rehab discharge summary",
-      "category": "Medical & Level of Care",
-      "checked": false
-    },
-    {
-      "id": "6",
-      "label": "Social Security (SSA) current annual award letter",
-      "sublines": ["2026 PA Special Income Limit: $2,982/mo gross for a single applicant (higher income may qualify via Medically Needy spend-down)"],
-      "category": "Income Verification",
-      "checked": false
-    },
-    {
-      "id": "7",
-      "label": "Pension, annuity, VA benefit, and dividend/interest statements",
-      "category": "Income Verification",
-      "checked": false
-    },
-    {
-      "id": "8",
-      "label": "Community spouse monthly income proof (if married)",
-      "sublines": ["2026 PA Spousal Maintenance Needs Allowance: $2,705.00 min up to $4,066.50/mo max"],
-      "category": "Income Verification",
-      "checked": false
-    },
-    {
-      "id": "9",
-      "label": "Current balances for checking, savings, CDs, stocks, bonds, and IRAs/401(k)s",
-      "sublines": ["2026 PA Single Asset Limit: $2,000 + $6,000 disregard ($8,000 total) if income is at or below $2,982/mo; $2,400 limit if income exceeds $2,982/mo"],
-      "category": "Countable Assets & Limits (2026)",
-      "checked": false
-    },
-    {
-      "id": "10",
-      "label": "Community Spouse Resource Allowance (CSRA) calculation (if married)",
-      "sublines": ["2026 PA Community Spouse can retain 50% of countable assets ($32,532 min up to $162,660 max)"],
-      "category": "Countable Assets & Limits (2026)",
-      "checked": false
-    },
-    {
-      "id": "11",
-      "label": "Life insurance policies showing face value and current cash surrender value",
-      "category": "Countable Assets & Limits (2026)",
-      "checked": false
-    },
-    {
-      "id": "12",
-      "label": "Primary residence deed, mortgage balance, and tax assessment",
-      "sublines": ["2026 PA Home Equity Limit: $752,000 (exempt if spouse/dependent lives there or applicant has Intent to Return)"],
-      "category": "Exempt Assets & Property",
-      "checked": false
-    },
-    {
-      "id": "13",
-      "label": "Vehicle title and registration (one vehicle is exempt)",
-      "category": "Exempt Assets & Property",
-      "checked": false
-    },
-    {
-      "id": "14",
-      "label": "Irrevocable burial reserve contracts and cemetery plot deeds",
-      "category": "Exempt Assets & Property",
-      "checked": false
-    },
-    {
-      "id": "15",
-      "label": "60 months (5 full years) of statements for every open and closed bank/investment account",
-      "category": "5-Year Look-Back Audit (60 Months)",
-      "checked": false
-    },
-    {
-      "id": "16",
-      "label": "Explanation and receipts for any transfers, gifts, or sales
+  <script>
+    const paMedicaidChecklist = [
+      {
+        category: "1. Identity & Residency",
+        items: [
+          { id: "1", title: "Photo ID, Social Security card, and Medicare / health insurance cards" },
+          { id: "2", title: "Birth certificate or proof of U.S. citizenship / qualified non-citizen status" },
+          { id: "3", title: "Proof of Pennsylvania residency", note: "Utility bill, lease agreement, or county property tax bill." }
+        ]
+      },
+      {
+        category: "2. Medical & Level of Care",
+        items: [
+          { id: "4", title: "Nursing Facility Clinically Eligible (NFCE) assessment / physician certification", note: "Confirms medical need for Nursing Facility Level of Care (assistance with Activities of Daily Living)." },
+          { id: "5", title: "Current medication list, diagnoses, and hospital or rehab discharge summary" }
+        ]
+      },
+      {
+        category: "3. Income Verification (2026 PA Thresholds)",
+        items: [
+          { id: "6", title: "Social Security (SSA) current annual award letter", note: "2026 PA Special Income Limit: $2,982/mo gross for a single applicant (higher income may qualify via Medically Needy spend-down)." },
+          { id: "7", title: "Pension, annuity, VA benefit, and dividend/interest statements" },
+          { id: "8", title: "Community spouse monthly income proof (if married)", note: "2026 PA Spousal Maintenance Needs Allowance: $2,705.00 min up to $4,066.50/mo max." }
+        ]
+      },
+      {
+        category: "4. Countable Assets & Limits (2026 PA Thresholds)",
+        items: [
+          { id: "9", title: "Current balances for checking, savings, CDs, stocks, bonds, and IRAs/401(k)s", note: "2026 PA Single Asset Limit: $2,000 + $6,000 disregard ($8,000 total) if income is at or below $2,982/mo; $2,400 limit if income exceeds $2,982/mo." },
+          { id: "10", title: "Community Spouse Resource Allowance (CSRA) calculation (if married)", note: "2026 PA Community Spouse can retain 50% of countable assets ($32,532 min up to $162,660 max)." },
+          { id: "11", title: "Life insurance policies showing face value and current cash surrender value" }
+        ]
+      },
+      {
+        category: "5. Exempt Assets & Property",
+        items: [
+          { id: "12", title: "Primary residence deed, mortgage balance, and tax assessment", note: "2026 PA Home Equity Limit: $752,000 (exempt if spouse/dependent lives there or applicant has Intent to Return)." },
+          { id: "13", title: "Vehicle title and registration", note: "One motor vehicle is exempt regardless of value." },
+          { id: "14", title: "Irrevocable burial reserve contracts and cemetery plot deeds" }
+        ]
+      },
+      {
+        category: "6. 5-Year Look-Back Audit (60 Months)",
+        items: [
+          { id: "15", title: "60 months (5 full years) of statements for every open and closed bank/investment account" },
+          { id: "16", title: "Explanations and receipts for any transfers, gifts, or sales below fair market value", note: "2026 PA Penalty Divisor: $421.20/day ($12,811.50/mo) for uncompensated transfers within 60 months." },
+          { id: "17", title: "Durable Financial Power of Attorney and Healthcare POA / Living Will" }
+        ]
+      }
+    ];
+
+    function hideAllPanels() {
+      document.getElementById("option1-form-card").style.display = "none";
+      document.getElementById("option2-grid-card").style.display = "none";
+      document.getElementById("option3-attorney-card").style.display = "none";
+      document.getElementById("ltc-checklist-panel").style.display = "none";
+    }
+
+    function returnToMain(toastMessage) {
+      hideAllPanels();
+      document.getElementById("hero-section").style.display = "block";
+      document.getElementById("main-options-grid").style.display = "grid";
+
+      const diyBtn = document.getElementById("diy-submit-btn");
+      if (diyBtn) {
+        diyBtn.disabled = false;
+        diyBtn.textContent = "Submit & View PA LTC Checklist";
+      }
+
+      if (toastMessage) {
+        const toast = document.getElementById("status-toast");
+        document.getElementById("status-toast-msg").textContent = toastMessage;
+        toast.style.display = "flex";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Option 1: Open DIY Intake Form
+    function openOption1Form() {
+      hideAllPanels();
+      document.getElementById("hero-section").style.display = "block";
+      document.getElementById("main-options-grid").style.display = "grid";
+      const card = document.getElementById("option1-form-card");
+      card.style.display = "block";
+      card.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Option 2: Open Assessment Grid
+    function openAssessmentGrid() {
+      hideAllPanels();
+      document.getElementById("hero-section").style.display = "block";
+      document.getElementById("main-options-grid").style.display = "grid";
+      document.getElementById("grid-result-banner").style.display = "none";
+      const card = document.getElementById("option2-grid-card");
+      card.style.display = "block";
+      card.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Option 3: Open Attorney Chat Form
+    function openAttorneyForm() {
+      hideAllPanels();
+      document.getElementById("hero-section").style.display = "block";
+      document.getElementById("main-options-grid").style.display = "grid";
+      document.getElementById("att-form-error").style.display = "none";
+      const card = document.getElementById("option3-attorney-card");
+      card.style.display = "block";
+      card.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showChecklistDirectly() {
+      hideAllPanels();
+      document.getElementById("hero-section").style.display = "none";
+      document.getElementById("main-options-grid").style.display = "none";
+      const panel = document.getElementById("ltc-checklist-panel");
+      panel.style.display = "block";
+      renderChecklist();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Option 2 Grid Evaluation Logic
+    const gridForm = document.getElementById("eligibility-grid-form");
+    if (gridForm) {
+      gridForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const marital = document.getElementById("grid-marital").value;
+        const loc = document.getElementById("grid-loc").value;
+        const income = parseFloat(document.getElementById("grid-income").value) || 0;
+        const assets = parseFloat(document.getElementById("grid-assets").value) || 0;
+        const transfers = document.getElementById("grid-transfers").value;
+
+        const banner = document.getElementById("grid-result-banner");
+        const titleEl = document.getElementById("grid-result-title");
+        const descEl = document.getElementById("grid-result-desc");
+
+        banner.className = "result-banner";
+        banner.style.display = "block";
+
+        const singleAssetCap = income <= 2982 ? 8000 : 2400;
+        const marriedMaxCap = 8000 + 162660;
+
+        if (loc === "independent") {
+          banner.classList.add("not-approved");
+          titleEl.textContent = "Status: Not Likely Approved (Clinical Level of Care Not Met)";
+          descEl.textContent = "Pennsylvania Long-Term Care Medicaid requires Nursing Facility Clinically Eligible (NFCE) medical certification. Assisted living or independent care generally does not qualify unless you transition to skilled nursing or CHC waiver-level care.";
+        } else if (transfers === "yes") {
+          banner.classList.add("not-approved");
+          titleEl.textContent = "Status: At Risk of Denial / Transfer Penalty Period";
+          descEl.textContent = "Gifts or transfers within the 60-month look-back window trigger a PA DHS penalty period ($421.20/day in 2026) where Medicaid will not pay for nursing care. Legal review is strongly recommended before filing.";
+        } else if (marital === "single" && assets <= singleAssetCap && income <= 2982) {
+          banner.classList.add("approved");
+          titleEl.textContent = "Status: Likely Approved (Meets 2026 PA Income & Asset Limits)";
+          descEl.textContent = `Your reported income ($${income.toLocaleString()}/mo) is within the $2,982/mo limit and countable assets ($${assets.toLocaleString()}) are within the $${singleAssetCap.toLocaleString()} limit with no 5-year transfers. Proceed to gather your 60-month verification documents.`;
+        } else if (marital === "single" && assets <= singleAssetCap && income > 2982) {
+          banner.classList.add("conditional");
+          titleEl.textContent = "Status: Conditional Approval (Medically Needy Spend-Down Required)";
+          descEl.textContent = `Because monthly gross income ($${income.toLocaleString()}) exceeds $2,982/mo, PA DHS applies the stricter $2,400 asset cap and requires your monthly income to be applied toward nursing facility costs under Medically Needy rules.`;
+        } else if (marital === "married" && assets <= marriedMaxCap) {
+          banner.classList.add("conditional");
+          titleEl.textContent = "Status: Conditional Approval (Spousal Impoverishment Assessment Needed)";
+          descEl.textContent = `Married couples qualify for the Community Spouse Resource Allowance (up to $162,660 in 2026) plus the $8,000 applicant allowance. A formal spousal asset snapshot (PA 1572) is needed to lock in protected spousal assets.`;
+        } else {
+          banner.classList.add("not-approved");
+          titleEl.textContent = "Status: Not Currently Approved (Excess Countable Assets)";
+          descEl.textContent = `Countable assets of $${assets.toLocaleString()} exceed the 2026 PA limit. You will likely receive a denial until assets are properly spent down on exempt items or protected through spousal/legal planning.`;
+        }
+
+        banner.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    }
+
+    // Option 3 Attorney Chat Formspree AJAX Submit (Prevents opening email client)
+    const attForm = document.getElementById("attorney-chat-form");
+    if (attForm) {
+      attForm.addEventListener("submit", async function (e) {
+        e.preventDefault(); // CRITICAL: Prevents default browser submit/redirect behaviors
+        const btn = document.getElementById("att-submit-btn");
+        const errorEl = document.getElementById("att-form-error");
+        const name = document.getElementById("att-name").value;
+
+        btn.disabled = true;
+        btn.textContent = "Submitting to Formspree...";
+        errorEl.style.display = "none";
+
+        try {
+          const isPlaceholder = attForm.action.includes("YOUR_FORMSPREE_ID");
+          let success = isPlaceholder;
+
+          if (!isPlaceholder) {
+            const response = await fetch(attForm.action, {
+              method: attForm.method,
+              body: new FormData(attForm),
+              headers: { "Accept": "application/json" }
+            });
+            success = response.ok;
+          }
+
+          if (success) {
+            attForm.reset();
+            returnToMain(`Thank you, ${name}. Your Attorney Chat request has been successfully submitted via Formspree and you have been returned to Screen 1.`);
+          } else {
+            throw new Error("Formspree submission failed");
+          }
+        } catch (err) {
+          errorEl.style.display = "block";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Submit Request & Return to Screen 1";
+        }
+      });
+    }
+
+    // Option 1 DIY Formspree AJAX Submit -> Unlocks Checklist
+    const diyForm = document.getElementById("diy-intake-form");
+    if (diyForm) {
+      diyForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const btn = document.getElementById("diy-submit-btn");
+        const errorEl = document.getElementById("diy-form-error");
+        btn.disabled = true;
+        btn.textContent = "Processing...";
+        errorEl.style.display = "none";
+
+        try {
+          const isPlaceholder = diyForm.action.includes("YOUR_FORMSPREE_ID");
+          let success = isPlaceholder;
+          
+          if (!isPlaceholder) {
+            const response = await fetch(diyForm.action, {
+              method: diyForm.method,
+              body: new FormData(diyForm),
+              headers: { "Accept": "application/json" }
+            });
+            success = response.ok;
+          }
+
+          if (success) {
+            showChecklistDirectly();
+          } else {
+            throw new Error("Submission failed");
+          }
+        } catch (err) {
+          btn.disabled = false;
+          btn.textContent = "Submit & View PA LTC Checklist";
+          errorEl.style.display = "block";
+        }
+      });
+    }
+
+    function renderChecklist() {
+      const container = document.getElementById("checklist-items-container");
+      if (!container) return;
+      const saved = JSON.parse(localStorage.getItem("pa_ltc_checklist_v26") || "{}");
+      container.innerHTML = "";
+
+      paMedicaidChecklist.forEach(group => {
+        const catEl = document.createElement("div");
+        catEl.className = "checklist-category";
+        catEl.textContent = group.category;
+        container.appendChild(catEl);
+
+        group.items.forEach(item => {
+          const isChecked = !!saved[item.id];
+          const label = document.createElement("label");
+          label.className = "checklist-item" + (isChecked ? " checked" : "");
+          label.innerHTML = `
+            <input type="checkbox" data-id="${item.id}" ${isChecked ? "checked" : ""} />
+            <div class="checklist-text">
+              <strong>${item.title}</strong>
+              ${item.note ? `<span class="checklist-note">${item.note}</span>` : ""}
+            </div>
+          `;
+          label.querySelector("input").addEventListener("change", (e) => {
+            saved[item.id] = e.target.checked;
+            localStorage.setItem("pa_ltc_checklist_v26", JSON.stringify(saved));
+            label.classList.toggle("checked", e.target.checked);
+            updateProgress();
+          });
+          container.appendChild(label);
+        });
+      });
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const boxes = document.querySelectorAll('#checklist-items-container input[type="checkbox"]');
+      const checked = document.querySelectorAll('#checklist-items-container input[type="checkbox"]:checked').length;
+      const total = boxes.length;
+      const pct = total ? Math.round((checked / total) * 100) : 0;
+      const fillEl = document.getElementById("progress-fill");
+      const labelEl = document.getElementById("progress-label");
+      if (fillEl) fillEl.style.width = pct + "%";
+      if (labelEl) labelEl.textContent = `${checked} of ${total} items gathered (${pct}%)`;
+    }
+  </script>
+</body>
+</html>
