@@ -26,7 +26,6 @@
       line-height: 1.5;
     }
 
-    /* Top Preview Bar */
     .preview-bar {
       background: #0f172a;
       color: #94a3b8;
@@ -37,7 +36,6 @@
       text-transform: uppercase;
     }
 
-    /* Header Nav */
     header {
       max-width: 1200px;
       margin: 0 auto;
@@ -65,7 +63,6 @@
     nav a { text-decoration: none; color: inherit; }
     nav a:hover { color: var(--text-main); }
 
-    /* Hero Section */
     .hero {
       max-width: 900px;
       margin: 2.5rem auto 3rem;
@@ -100,7 +97,6 @@
       margin-top: 1rem;
     }
 
-    /* Three Cards Grid (v2.2 Layout Restored) */
     .grid-3 {
       max-width: 1200px;
       margin: 0 auto 3rem;
@@ -184,7 +180,6 @@
     }
     .btn-orange:hover { background: #c2410c; }
 
-    /* Interactive Checklist Panel */
     #ltc-checklist-panel {
       display: none;
       max-width: 900px;
@@ -242,7 +237,6 @@
     .checklist-item.checked .checklist-text strong { text-decoration: line-through; color: var(--text-muted); }
     .checklist-note { display: block; font-size: 0.83rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-    /* Trust Footer Bullets */
     .trust-footer {
       max-width: 900px;
       margin: 0 auto 4rem;
@@ -256,7 +250,6 @@
     .trust-bullet { display: flex; align-items: flex-start; gap: 0.5rem; }
     .trust-bullet span { color: var(--success); font-weight: bold; }
 
-    /* Print view formatting */
     @media print {
       body * { visibility: hidden; }
       #ltc-checklist-panel, #ltc-checklist-panel * { visibility: visible; }
@@ -272,246 +265,4 @@
   <header>
     <div class="logo">Medicaid<span>ABC</span></div>
     <nav>
-      <a href="#">Three Ways to Start</a>
-      <a href="#">Assessment Grid</a>
-      <a href="#">$5,000 Package</a>
-      <a href="#">FAQ</a>
-    </nav>
-  </header>
-
-  <div class="hero">
-    <span class="hero-subtitle-tag">Pennsylvania Long-Term Care Medicaid • Three Ways to Start</span>
-    <h1>A clearer starting point for <span>Pennsylvania Medicaid</span> applications.</h1>
-    <p>Start free. Pay only if you want legal help. Choose the path that fits your family right now:</p>
-    <div class="disclaimer">Not affiliated with Pennsylvania Medicaid or PA DHS. Do not enter SSNs or account numbers.</div>
-  </div>
-
-  <!-- Three Service Cards Grid (v2.2 Exact Layout) -->
-  <div class="grid-3" id="main-grid">
-    
-    <!-- Box 1: Do It Yourself -->
-    <div class="card">
-      <span class="card-badge">Free</span>
-      <div class="card-num">01</div>
-      <h3>Do It Yourself</h3>
-      <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
-      <button type="button" class="btn" onclick="openIntakeForm()">Get Free DIY Checklist &rarr;</button>
-    </div>
-
-    <!-- Box 2: Free Assessment Grid -->
-    <div class="card" style="border-color: #0f172a; border-width: 2px;">
-      <span class="card-badge">Free</span>
-      <div class="card-num">02</div>
-      <h3>Free Assessment</h3>
-      <p>Select your situation in the single-page grid below to generate a tailored PA checklist instantly, and optionally send it for review.</p>
-      <button type="button" class="btn btn-dark" onclick="openIntakeForm()">Use Assessment Grid &darr;</button>
-    </div>
-
-    <!-- Box 3: Attorney Chat -->
-    <div class="card">
-      <span class="card-badge" style="background: #fee2e2; color: #991b1b;">$100 flat fee</span>
-      <div class="card-num">03</div>
-      <h3>Attorney Chat</h3>
-      <p>Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.</p>
-      <a href="#" class="btn btn-orange">Book Attorney Chat ($100) &rarr;</a>
-    </div>
-
-  </div>
-
-  <!-- Lead Intake Form Card (Revealed when Option 1 or 2 is clicked) -->
-  <div id="intake-form-card" class="card" style="max-width: 600px; margin: 0 auto 3rem; display: none;">
-    <h2>Enter Your Details to Unlock Checklist</h2>
-    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-      We'll instantly unlock your interactive 2026 PA LTC checklist and email your copy.
-    </p>
-
-    <form id="lead-intake-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Full Name</label>
-        <input type="text" name="name" placeholder="Jane Doe" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Email Address</label>
-        <input type="email" name="email" placeholder="name@example.com" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Phone Number</label>
-        <input type="tel" name="phone" placeholder="(555) 000-0000" style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
-      </div>
-      <div style="margin-bottom: 1.25rem;">
-        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Brief Situation / Care Status</label>
-        <textarea name="notes" rows="2" placeholder="Entering SNF in PA..." style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;"></textarea>
-      </div>
-
-      <button type="submit" id="submit-btn" class="btn btn-dark">Submit &amp; View PA LTC Checklist</button>
-      <p id="form-error" style="color: #dc2626; display: none; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 500;">Submission error. Please check your network connection.</p>
-    </form>
-  </div>
-
-  <!-- Interactive Checklist Panel (Revealed after submission) -->
-  <div id="ltc-checklist-panel">
-    <div class="checklist-header">
-      <div>
-        <h2>✅ 2026 PA Medicaid LTC Requirements Checklist</h2>
-        <p class="checklist-sub">Check items off as you gather them. Your progress saves automatically in this browser.</p>
-      </div>
-      <button type="button" class="btn btn-dark btn-print" style="width: auto;" onclick="window.print()">🖨️ Print / Save PDF</button>
-    </div>
-
-    <div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
-    <span class="progress-label" id="progress-label">0 of 17 items gathered (0%)</span>
-
-    <div id="checklist-items-container"></div>
-  </div>
-
-  <!-- Trust Footer Bullets -->
-  <div class="trust-footer">
-    <div class="trust-bullet"><span>✓</span> Discuss your Pennsylvania long-term care timeline and questions</div>
-    <div class="trust-bullet"><span>✓</span> Review potential 5-year look-back or spousal protection issues</div>
-    <div class="trust-bullet"><span>✓</span> Decide whether DIY or full representation makes sense</div>
-  </div>
-
-  <script>
-    const paMedicaidChecklist = [
-      {
-        category: "1. Identity & Residency",
-        items: [
-          { id: "c1", title: "Photo ID, Social Security card, and Medicare / health insurance cards" },
-          { id: "c2", title: "Birth certificate or proof of U.S. citizenship / qualified non-citizen status" },
-          { id: "c3", title: "Proof of Pennsylvania residency", note: "Utility bill, lease agreement, or county property tax bill." }
-        ]
-      },
-      {
-        category: "2. Medical & Level of Care",
-        items: [
-          { id: "c4", title: "Nursing Facility Clinically Eligible (NFCE) assessment / physician certification", note: "Confirms medical need for Nursing Facility Level of Care (assistance with Activities of Daily Living)." },
-          { id: "c5", title: "Current medication list, diagnoses, and hospital or rehab discharge summary" }
-        ]
-      },
-      {
-        category: "3. Income Verification (2026 PA Thresholds)",
-        items: [
-          { id: "c6", title: "Social Security (SSA) current annual award letter", note: "2026 PA Special Income Limit: $2,982/mo gross for a single applicant (higher income may qualify via Medically Needy spend-down)." },
-          { id: "c7", title: "Pension, annuity, VA benefit, and dividend/interest statements" },
-          { id: "c8", title: "Community spouse monthly income proof (if married)", note: "2026 PA Spousal Maintenance Needs Allowance: $2,705.00 min up to $4,066.50/mo max." }
-        ]
-      },
-      {
-        category: "4. Countable Assets & Limits (2026 PA Thresholds)",
-        items: [
-          { id: "c9", title: "Current balances for checking, savings, CDs, stocks, bonds, and IRAs/401(k)s", note: "2026 PA Single Asset Limit: $2,000 + $6,000 disregard ($8,000 total) if income is at or below $2,982/mo; $2,400 limit if income exceeds $2,982/mo." },
-          { id: "c10", title: "Community Spouse Resource Allowance (CSRA) calculation (if married)", note: "2026 PA Community Spouse can retain 50% of countable assets ($32,532 min up to $162,660 max)." },
-          { id: "c11", title: "Life insurance policies showing face value and current cash surrender value" }
-        ]
-      },
-      {
-        category: "5. Exempt Assets & Property",
-        items: [
-          { id: "c12", title: "Primary residence deed, mortgage balance, and tax assessment", note: "2026 PA Home Equity Limit: $752,000 (exempt if spouse/dependent lives there or applicant has Intent to Return)." },
-          { id: "c13", title: "Vehicle title and registration", note: "One motor vehicle is exempt regardless of value." },
-          { id: "c14", title: "Irrevocable burial reserve contracts and cemetery plot deeds" }
-        ]
-      },
-      {
-        category: "6. 5-Year Look-Back Audit (60 Months)",
-        items: [
-          { id: "c15", title: "60 months (5 full years) of statements for every open and closed bank/investment account" },
-          { id: "c16", title: "Explanations and receipts for any transfers, gifts, or sales below fair market value", note: "2026 PA Penalty Divisor: $421.20/day ($12,811.50/mo) for uncompensated transfers within 60 months." },
-          { id: "c17", title: "Durable Financial Power of Attorney and Healthcare POA / Living Will" }
-        ]
-      }
-    ];
-
-    function openIntakeForm() {
-      const formCard = document.getElementById("intake-form-card");
-      formCard.style.display = "block";
-      formCard.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function renderChecklist() {
-      const container = document.getElementById("checklist-items-container");
-      if (!container) return;
-      const saved = JSON.parse(localStorage.getItem("pa_ltc_checklist_v23") || "{}");
-      container.innerHTML = "";
-
-      paMedicaidChecklist.forEach(group => {
-        const catEl = document.createElement("div");
-        catEl.className = "checklist-category";
-        catEl.textContent = group.category;
-        container.appendChild(catEl);
-
-        group.items.forEach(item => {
-          const isChecked = !!saved[item.id];
-          const label = document.createElement("label");
-          label.className = "checklist-item" + (isChecked ? " checked" : "");
-          label.innerHTML = `
-            <input type="checkbox" data-id="${item.id}" ${isChecked ? "checked" : ""} />
-            <div class="checklist-text">
-              <strong>${item.title}</strong>
-              ${item.note ? `<span class="checklist-note">${item.note}</span>` : ""}
-            </div>
-          `;
-          label.querySelector("input").addEventListener("change", (e) => {
-            saved[item.id] = e.target.checked;
-            localStorage.setItem("pa_ltc_checklist_v23", JSON.stringify(saved));
-            label.classList.toggle("checked", e.target.checked);
-            updateProgress();
-          });
-          container.appendChild(label);
-        });
-      });
-      updateProgress();
-    }
-
-    function updateProgress() {
-      const boxes = document.querySelectorAll('#checklist-items-container input[type="checkbox"]');
-      const checked = document.querySelectorAll('#checklist-items-container input[type="checkbox"]:checked').length;
-      const total = boxes.length;
-      const pct = total ? Math.round((checked / total) * 100) : 0;
-      const fillEl = document.getElementById("progress-fill");
-      const labelEl = document.getElementById("progress-label");
-      if (fillEl) fillEl.style.width = pct + "%";
-      if (labelEl) labelEl.textContent = `${checked} of ${total} items gathered (${pct}%)`;
-    }
-
-    // Intercept Formspree submission via AJAX
-    const form = document.getElementById("lead-intake-form");
-    if (form) {
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const btn = document.getElementById("submit-btn");
-        const errorEl = document.getElementById("form-error");
-        btn.disabled = true;
-        btn.textContent = "Processing...";
-        errorEl.style.display = "none";
-
-        try {
-          const response = await fetch(form.action, {
-            method: form.method,
-            body: new FormData(form),
-            headers: { "Accept": "application/json" }
-          });
-
-          // Proceed to render checklist on success (or fallback for testing if Formspree ID is unconfigured)
-          if (response.ok || form.action.includes("YOUR_FORMSPREE_ID")) {
-            document.getElementById("main-grid").style.display = "none";
-            document.getElementById("intake-form-card").style.display = "none";
-            document.querySelector(".hero").style.display = "none";
-            
-            const panel = document.getElementById("ltc-checklist-panel");
-            panel.style.display = "block";
-            renderChecklist();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          } else {
-            throw new Error("Submission failed");
-          }
-        } catch (err) {
-          btn.disabled = false;
-          btn.textContent = "Submit & View PA LTC Checklist";
-          errorEl.style.display = "block";
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+      <a href="#">Three Ways to Start
