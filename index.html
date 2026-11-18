@@ -6,13 +6,13 @@
   <title>MedicaidABC v2.3 | Pennsylvania Long-Term Care & Medicaid Navigation</title>
   <style>
     :root {
-      --primary: #1e3a8a;
-      --primary-hover: #1d4ed8;
-      --bg-color: #f8fafc;
+      --bg-color: #fcfbf9;
       --card-bg: #ffffff;
       --text-main: #111827;
       --text-muted: #4b5563;
       --border-color: #d1d5db;
+      --primary-orange: #c2410c;
+      --primary-dark: #0f172a;
       --success: #16a34a;
     }
 
@@ -26,67 +26,174 @@
       line-height: 1.5;
     }
 
-    header {
-      background: var(--primary);
-      color: #ffffff;
-      padding: 2rem 1rem;
+    /* Top Preview Bar */
+    .preview-bar {
+      background: #0f172a;
+      color: #94a3b8;
+      font-size: 0.75rem;
       text-align: center;
+      padding: 0.35rem 1rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
-    header h1 { margin: 0 0 0.5rem; font-size: 1.8rem; }
-    header p { margin: 0; font-size: 1rem; opacity: 0.9; }
 
-    /* Restored Multi-Column Grid Container */
-    .container {
+    /* Header Nav */
+    header {
       max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      align-items: start;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--primary-orange); }
+    nav {
+      display: flex;
+      gap: 1.75rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    nav a { text-decoration: none; color: inherit; }
+    nav a:hover { color: var(--text-main); }
+
+    /* Hero Section */
+    .hero {
+      max-width: 900px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.5rem;
+      text-align: left;
+    }
+    .hero-subtitle-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary-orange);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      line-height: 1.15;
+      margin: 0 0 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 span { color: var(--primary-orange); }
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin: 0 0 0.5rem;
+    }
+    .disclaimer {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-top: 1rem;
     }
 
-    /* Lead Form & Content Cards */
+    /* Three Cards Grid (v2.2 Layout Restored) */
+    .grid-3 {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 2rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
-    .card h2 { margin-top: 0; color: var(--primary); font-size: 1.3rem; }
-    .form-group { margin-bottom: 1.25rem; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.95rem; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 1rem;
+    
+    .card-badge {
+      position: absolute;
+      top: 1.75rem;
+      right: 1.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary-orange);
+      background: #ffedd5;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
     }
-    .btn-submit {
-      background: var(--primary);
-      color: #ffffff;
-      border: none;
-      width: 100%;
-      padding: 0.85rem;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .btn-submit:hover { background: var(--primary-hover); }
-    #form-error { color: #dc2626; display: none; margin-top: 0.75rem; font-weight: 500; font-size: 0.9rem; }
 
-    /* Post-Submission Interactive Checklist Panel (Spans full grid width when active) */
+    .card-num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-orange);
+      margin-bottom: 0.5rem;
+    }
+    .card h3 {
+      font-size: 1.4rem;
+      margin: 0 0 0.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin: 0 0 1.5rem;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      color: var(--text-main);
+      transition: all 0.2s;
+    }
+    .btn:hover { background: #f3f4f6; }
+    
+    .btn-dark {
+      background: var(--primary-dark);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+    }
+    .btn-dark:hover { background: #1e293b; }
+
+    .btn-orange {
+      background: #ea580c;
+      color: #ffffff;
+      border-color: #ea580c;
+    }
+    .btn-orange:hover { background: #c2410c; }
+
+    /* Interactive Checklist Panel (Replaces grid when form is submitted) */
     #ltc-checklist-panel {
       display: none;
-      grid-column: 1 / -1;
+      max-width: 900px;
+      margin: 2rem auto 4rem;
+      padding: 2.5rem;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     }
     .checklist-header {
       display: flex;
@@ -95,158 +202,174 @@
       flex-wrap: wrap;
       gap: 1rem;
       border-bottom: 2px solid #e5e7eb;
-      padding-bottom: 1rem;
+      padding-bottom: 1.25rem;
       margin-bottom: 1.5rem;
     }
-    .checklist-header h2 { margin: 0; font-size: 1.35rem; color: var(--primary); }
-    .checklist-sub { margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
-    .btn-print {
-      background: var(--primary);
-      color: #ffffff;
-      border: none;
-      padding: 0.55rem 1rem;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.88rem;
-    }
-    .btn-print:hover { background: var(--primary-hover); }
-
+    .checklist-header h2 { margin: 0; font-size: 1.5rem; color: var(--text-main); }
+    .checklist-sub { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
+    
     .progress-wrap { background: #e5e7eb; border-radius: 999px; height: 10px; margin-bottom: 0.4rem; overflow: hidden; }
     .progress-fill { background: var(--success); height: 100%; width: 0%; transition: width 0.25s ease; }
-    .progress-label { font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 1.5rem; display: block; }
+    .progress-label { font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 1.75rem; display: block; }
 
     .checklist-category {
-      margin-top: 1.5rem;
-      margin-bottom: 0.6rem;
-      font-size: 0.98rem;
+      margin-top: 1.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      color: var(--primary);
+      color: var(--primary-orange);
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
     }
     .checklist-item {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.65rem 0.5rem;
+      gap: 0.85rem;
+      padding: 0.75rem 0.5rem;
       border-bottom: 1px solid #f3f4f6;
       cursor: pointer;
     }
     .checklist-item:hover { background: #f9fafb; }
     .checklist-item input[type="checkbox"] {
-      width: 19px;
-      height: 19px;
+      width: 20px;
+      height: 20px;
       margin-top: 2px;
       accent-color: var(--success);
       cursor: pointer;
       flex-shrink: 0;
     }
-    .checklist-text strong { display: block; font-size: 0.95rem; color: var(--text-main); font-weight: 600; }
+    .checklist-text strong { display: block; font-size: 0.96rem; color: var(--text-main); font-weight: 600; }
     .checklist-item.checked .checklist-text strong { text-decoration: line-through; color: var(--text-muted); }
-    .checklist-note { display: block; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .checklist-note { display: block; font-size: 0.83rem; color: var(--text-muted); margin-top: 0.25rem; }
 
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
+    /* Footer Trust Bullets */
+    .trust-footer {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
+    .trust-bullet { display: flex; align-items: flex-start; gap: 0.5rem; }
+    .trust-bullet span { color: var(--success); font-weight: bold; }
 
-    /* Print Formatting */
+    /* Print view formatting */
     @media print {
       body * { visibility: hidden; }
       #ltc-checklist-panel, #ltc-checklist-panel * { visibility: visible; }
-      #ltc-checklist-panel {
-        position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border: none; margin: 0; padding: 0;
-      }
+      #ltc-checklist-panel { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; margin: 0; padding: 1rem; }
       .btn-print { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <div class="preview-bar">PRIVATE PREVIEW (v2.3) • Single-Page Pennsylvania Long-Term Care Assessment</div>
+
   <header>
-    <h1>MedicaidABC (v2.3)</h1>
-    <p>Pennsylvania Long-Term Care &amp; Medicaid Navigation Portal</p>
+    <div class="logo">Medicaid<span>ABC</span></div>
+    <nav>
+      <a href="#">Three Ways to Start</a>
+      <a href="#">Assessment Grid</a>
+      <a href="#">$5,000 Package</a>
+      <a href="#">FAQ</a>
+    </nav>
   </header>
 
-  <div class="container">
+  <div class="hero">
+    <span class="hero-subtitle-tag">Pennsylvania Long-Term Care Medicaid • Three Ways to Start</span>
+    <h1>A clearer starting point for <span>Pennsylvania Medicaid</span> applications.</h1>
+    <p>Start free. Pay only if you want legal help. Choose the path that fits your family right now:</p>
+    <div class="disclaimer">Not affiliated with Pennsylvania Medicaid or PA DHS. Do not enter SSNs or account numbers.</div>
+  </div>
+
+  <!-- Three Service Cards Grid (v2.2 Exact Layout) -->
+  <div class="grid-3" id="main-grid">
     
-    <!-- Info Card 1: 2026 Thresholds Overview -->
+    <!-- Box 1: Do It Yourself -->
     <div class="card">
-      <h2>2026 PA Financial Thresholds</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        Key metrics governing Pennsylvania Long-Term Care Medicaid eligibility:
-      </p>
-      <ul style="padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-main);">
-        <li><strong>Income Cap:</strong> $2,982 / month</li>
-        <li><strong>Single Asset Limit:</strong> $8,000</li>
-        <li><strong>CSRA (Spouse):</strong> $32,532 – $162,660</li>
-        <li><strong>Home Equity Cap:</strong> $752,000</li>
-        <li><strong>Penalty Divisor:</strong> $421.20 / day</li>
-      </ul>
+      <span class="card-badge">Free</span>
+      <div class="card-num">01</div>
+      <h3>Do It Yourself</h3>
+      <p>Request our organized Pennsylvania long-term care document checklist by email so you know every statement and record PA DHS asks for.</p>
+      <button type="button" class="btn" onclick="openIntakeForm('diy')">Get Free DIY Checklist &rarr;</button>
     </div>
 
-    <!-- Lead Intake Form Card (Center/Main Box) -->
-    <div class="card" id="form-card">
-      <h2>Request Assessment</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
-        Enter your details to instantly unlock the interactive 2026 LTC checklist.
-      </p>
-
-      <form id="lead-intake-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="Jane Doe" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="name@example.com" required />
-        </div>
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" />
-        </div>
-        <div class="form-group">
-          <label for="notes">Brief Situation</label>
-          <textarea id="notes" name="notes" rows="2" placeholder="Entering SNF in PA..."></textarea>
-        </div>
-
-        <button type="submit" id="submit-btn" class="btn-submit">Submit &amp; View Checklist</button>
-        <p id="form-error">Submission error. Please check your network.</p>
-      </form>
+    <!-- Box 2: Free Assessment Grid -->
+    <div class="card" style="border-color: #0f172a; border-width: 2px;">
+      <span class="card-badge">Free</span>
+      <div class="card-num">02</div>
+      <h3>Free Assessment</h3>
+      <p>Select your situation in the single-page grid below to generate a tailored PA checklist instantly, and optionally send it for review.</p>
+      <button type="button" class="btn btn-dark" onclick="openIntakeForm('assessment')">Use Assessment Grid &darr;</button>
     </div>
 
-    <!-- Info Card 3: Portal Benefits -->
+    <!-- Box 3: Attorney Chat -->
     <div class="card">
-      <h2>Why MedicaidABC?</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.4;">
-        We transition complex 60-month look-back audits and asset verification into a clear, client-side progress tracker with auto-save and print-to-PDF support.
-      </p>
-    </div>
-
-    <!-- Hidden Checklist Panel (Expands to fill grid upon submission) -->
-    <div id="ltc-checklist-panel">
-      <div class="checklist-header">
-        <div>
-          <h2>✅ Request Received — 2026 PA Medicaid LTC Checklist</h2>
-          <p class="checklist-sub">Check items off as you gather them. Progress saves automatically.</p>
-        </div>
-        <button type="button" class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
-      </div>
-
-      <div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
-      <span class="progress-label" id="progress-label">0 of 17 items gathered (0%)</span>
-
-      <div id="checklist-items-container"></div>
+      <span class="card-badge" style="background: #fee2e2; color: #991b1b;">$100 flat fee</span>
+      <div class="card-num">03</div>
+      <h3>Attorney Chat</h3>
+      <p>Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.</p>
+      <a href="#" class="btn btn-orange">Book Attorney Chat ($100) &rarr;</a>
     </div>
 
   </div>
 
-  <footer>
-    &copy; 2026 MedicaidABC / MedicaidA2Z. All rights reserved. Transparent legal navigation &amp; guidance.
-  </footer>
+  <!-- Hidden Intake Form Modal / Card Section (Toggled on Box 1 or 2 click) -->
+  <div id="intake-form-card" class="card" style="max-width: 600px; margin: 0 auto 3rem; display: none;">
+    <h2>Enter Your Details to Unlock Checklist</h2>
+    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+      We'll instantly unlock your interactive 2026 PA LTC checklist and email your copy.
+    </p>
+
+    <form id="lead-intake-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Full Name</label>
+        <input type="text" name="name" placeholder="Jane Doe" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Email Address</label>
+        <input type="email" name="email" placeholder="name@example.com" required style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
+      </div>
+      <div style="margin-bottom: 1rem;">
+        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Phone Number</label>
+        <input type="tel" name="phone" placeholder="(555) 000-0000" style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;" />
+      </div>
+      <div style="margin-bottom: 1.25rem;">
+        <label style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem;">Brief Situation / Care Status</label>
+        <textarea name="notes" rows="2" placeholder="Entering SNF in PA..." style="width: 100%; padding: 0.7rem; border: 1px solid var(--border-color); border-radius: 6px;"></textarea>
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn btn-dark">Submit &amp; View PA LTC Checklist</button>
+      <p id="form-error" style="color: #dc2626; display: none; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 500;">Submission error. Please check your network connection.</p>
+    </form>
+  </div>
+
+  <!-- Interactive Checklist Panel (Revealed after submission) -->
+  <div id="ltc-checklist-panel">
+    <div class="checklist-header">
+      <div>
+        <h2>✅ 2026 PA Medicaid LTC Requirements Checklist</h2>
+        <p class="checklist-sub">Check items off as you gather them. Your progress saves automatically in this browser.</p>
+      </div>
+      <button type="button" class="btn btn-dark btn-print" style="width: auto;" onclick="window.print()">🖨️ Print / Save PDF</button>
+    </div>
+
+    <div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
+    <span class="progress-label" id="progress-label">0 of 17 items gathered (0%)</span>
+
+    <div id="checklist-items-container"></div>
+  </div>
+
+  <!-- Trust Footer Bullets -->
+  <div class="trust-footer">
+    <div class="trust-bullet"><span>✓</span> Discuss your Pennsylvania long-term care timeline and questions</div>
+    <div class="trust-bullet"><span>✓</span> Review potential 5-year look-back or spousal protection issues</div>
+    <div class="trust-bullet"><span>✓</span> Decide whether DIY or full representation makes sense</div>
+  </div>
 
   <script>
     const paMedicaidChecklist = [
@@ -298,6 +421,11 @@
         ]
       }
     ];
+
+    function openIntakeForm(type) {
+      document.getElementById("intake-form-card").style.display = "block";
+      document.getElementById("intake-form-card").scrollIntoView({ behavior: "smooth" });
+    }
 
     function renderChecklist() {
       const container = document.getElementById("checklist-items-container");
@@ -360,8 +488,11 @@
         });
 
         if (response.ok) {
-          // Hide side cards and form card, then reveal checklist across full grid
-          document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+          // Hide top grid and intake form, reveal interactive checklist
+          document.getElementById("main-grid").style.display = "none";
+          document.getElementById("intake-form-card").style.display = "none";
+          document.querySelector(".hero").style.display = "none";
+          
           const panel = document.getElementById("ltc-checklist-panel");
           panel.style.display = "block";
           renderChecklist();
@@ -371,7 +502,7 @@
         }
       } catch (err) {
         btn.disabled = false;
-        btn.textContent = "Submit & View Checklist";
+        btn.textContent = "Submit & View PA LTC Checklist";
         errorEl.style.display = "block";
       }
     });
