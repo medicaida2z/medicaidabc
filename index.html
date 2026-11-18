@@ -17,6 +17,7 @@
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: system-ui, -apple-system, sans-serif;
       background-color: var(--bg-color);
@@ -51,6 +52,7 @@
       font-weight: 800;
       color: var(--text-main);
       letter-spacing: -0.02em;
+      cursor: pointer;
     }
     .logo span { color: var(--primary-orange); }
     nav {
@@ -60,7 +62,7 @@
       font-weight: 500;
       color: var(--text-muted);
     }
-    nav a { text-decoration: none; color: inherit; }
+    nav a { text-decoration: none; color: inherit; cursor: pointer; }
     nav a:hover { color: var(--text-main); }
 
     .hero {
@@ -180,6 +182,37 @@
     }
     .btn-orange:hover { background: #c2410c; }
 
+    /* FAQ Section */
+    .faq-section {
+      max-width: 900px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+    .faq-section h2 {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+    .faq-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .faq-item h4 {
+      margin: 0 0 0.5rem;
+      color: var(--primary-orange);
+      font-size: 1.05rem;
+    }
+    .faq-item p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
     #ltc-checklist-panel {
       display: none;
       max-width: 900px;
@@ -202,6 +235,11 @@
     }
     .checklist-header h2 { margin: 0; font-size: 1.5rem; color: var(--text-main); }
     .checklist-sub { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
+    .checklist-actions {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
     
     .progress-wrap { background: #e5e7eb; border-radius: 999px; height: 10px; margin-bottom: 0.4rem; overflow: hidden; }
     .progress-fill { background: var(--success); height: 100%; width: 0%; transition: width 0.25s ease; }
@@ -237,6 +275,17 @@
     .checklist-item.checked .checklist-text strong { text-decoration: line-through; color: var(--text-muted); }
     .checklist-note { display: block; font-size: 0.83rem; color: var(--text-muted); margin-top: 0.25rem; }
 
+    .checklist-footer-nav {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
     .trust-footer {
       max-width: 900px;
       margin: 0 auto 4rem;
@@ -254,32 +303,35 @@
       body * { visibility: hidden; }
       #ltc-checklist-panel, #ltc-checklist-panel * { visibility: visible; }
       #ltc-checklist-panel { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; margin: 0; padding: 1rem; }
-      .btn-print { display: none; }
+      .no-print { display: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <div class="preview-bar">2027 GRAND OPENING • Join Waiting List</div>
+  <div class="preview-bar">MEDICAIDABC v2.3 • 2027 GRAND OPENING &amp; WAITING LIST</div>
 
   <header>
-    <div class="logo">Medicaid<span>ABC</span></div>
+    <div class="logo" onclick="returnToMain()">Medicaid<span>ABC</span> (v2.3)</div>
     <nav>
-      <a href="#">Three Ways to Start</a>
-      <a href="#">Assessment Grid</a>
-      <a href="#">$5,000 Package</a>
-      <a href="#">FAQ</a>
+      <a onclick="returnToMain()">Three Ways to Start</a>
+      <a href="#assessment-grid">Assessment Grid</a>
+      <a href="#package-section">$5,000 Package</a>
+      <a href="#faq-section">FAQ</a>
     </nav>
   </header>
 
-  <div class="hero">
+  <div class="hero" id="hero-section">
     <span class="hero-subtitle-tag">Pennsylvania Long-Term Care Medicaid • Three Ways to Start</span>
     <h1>A clearer starting point for <span>Pennsylvania Medicaid</span> applications.</h1>
     <p>Start free. Pay only if you want legal help. Choose the path that fits your family right now:</p>
     <div class="disclaimer">Not affiliated with Pennsylvania Medicaid or PA DHS. Do not enter SSNs or account numbers.</div>
   </div>
 
-  <div class="grid-3" id="main-grid">
+  <!-- Three Service Cards Grid (Anchored for navigation) -->
+  <div class="grid-3" id="assessment-grid">
+    
+    <!-- Option 1: Do It Yourself -->
     <div class="card">
       <span class="card-badge">Free</span>
       <div class="card-num">01</div>
@@ -288,6 +340,7 @@
       <button type="button" class="btn" onclick="openIntakeForm()">Get Free DIY Checklist &rarr;</button>
     </div>
 
+    <!-- Option 2: Free Assessment Grid -->
     <div class="card" style="border-color: #0f172a; border-width: 2px;">
       <span class="card-badge">Free</span>
       <div class="card-num">02</div>
@@ -296,17 +349,23 @@
       <button type="button" class="btn btn-dark" onclick="openIntakeForm()">Use Assessment Grid &darr;</button>
     </div>
 
-    <div class="card">
+    <!-- Option 3: Attorney Chat (Sends Email) -->
+    <div class="card" id="package-section">
       <span class="card-badge" style="background: #fee2e2; color: #991b1b;">$100 flat fee</span>
       <div class="card-num">03</div>
       <h3>Attorney Chat</h3>
       <p>Schedule a focused 15-minute conversation with a Pennsylvania Medicaid attorney to discuss strategy before deciding on full representation.</p>
-      <a href="#" class="btn btn-orange">Book Attorney Chat ($100) &rarr;</a>
+      <a href="mailto:support@medicaida2z.com?subject=Schedule%20Attorney%20Chat%20($100)&body=Hello,%20I%20would%20like%20to%20schedule%20my%2015-minute%20PA%20Medicaid%20attorney%20consultation.%20Please%20contact%20me%20at%20this%20email%20address." class="btn btn-orange">Book Attorney Chat ($100) &rarr;</a>
     </div>
+
   </div>
 
+  <!-- Lead Intake Form Card (Shared by Option 1 & 2) -->
   <div id="intake-form-card" class="card" style="max-width: 600px; margin: 0 auto 3rem; display: none;">
-    <h2>Enter Your Details to Unlock Checklist</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+      <h2 style="margin: 0;">Enter Your Details to Unlock Checklist</h2>
+      <button type="button" onclick="returnToMain()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.9rem; font-weight: 600;">✕ Close</button>
+    </div>
     <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
       We'll instantly unlock your interactive 2026 PA LTC checklist and email your copy.
     </p>
@@ -334,19 +393,48 @@
     </form>
   </div>
 
+  <!-- Interactive Checklist Panel -->
   <div id="ltc-checklist-panel">
     <div class="checklist-header">
       <div>
         <h2>✅ 2026 PA Medicaid LTC Requirements Checklist</h2>
         <p class="checklist-sub">Check items off as you gather them. Your progress saves automatically in this browser.</p>
       </div>
-      <button type="button" class="btn btn-dark btn-print" style="width: auto;" onclick="window.print()">🖨️ Print / Save PDF</button>
+      <div class="checklist-actions no-print">
+        <button type="button" class="btn" style="width: auto;" onclick="returnToMain()">&larr; Back to Main Screen</button>
+        <button type="button" class="btn btn-dark" style="width: auto;" onclick="window.print()">🖨️ Print / Save PDF</button>
+      </div>
     </div>
 
     <div class="progress-wrap"><div class="progress-fill" id="progress-fill"></div></div>
     <span class="progress-label" id="progress-label">0 of 17 items gathered (0%)</span>
 
     <div id="checklist-items-container"></div>
+
+    <div class="checklist-footer-nav no-print">
+      <button type="button" class="btn" style="width: auto;" onclick="returnToMain()">&larr; Done / Return to Main Screen</button>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">Progress is saved automatically on this device.</span>
+    </div>
+  </div>
+
+  <!-- FAQ Section with Requested Topics -->
+  <div class="faq-section" id="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    
+    <div class="faq-item">
+      <h4>A. How to appeal a Pennsylvania Medicaid decision</h4>
+      <p>If your Long-Term Care Medicaid application is denied or terminated, you have the right to file a written appeal with your local County Assistance Office (CAO) within 30 days of the mailing date on the notice. Request a fair hearing and ensure you maintain benefits pending appeal if filed within the required timeframe.</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>B. How to apply for PA Long-Term Care Medicaid</h4>
+      <p>Applications can be submitted online via COMPASS PA (compass.state.pa.us), by mail, or in person at your county CAO. You must complete both financial forms and the medical assessment (Nursing Facility Clinically Eligible assessment) to establish clinical need.</p>
+    </div>
+
+    <div class="faq-item">
+      <h4>C. How to request required documents from banks and businesses</h4>
+      <p>When preparing for the mandatory 5-year look-back audit, request complete historical monthly statements directly from your bank branch managers or online portals. For closed accounts, life insurance policies, or annuities, submit formal written requests for "surrender value verification letters" and historical transaction logs.</p>
+    </div>
   </div>
 
   <div class="trust-footer">
@@ -407,9 +495,34 @@
     ];
 
     function openIntakeForm() {
+      document.getElementById("ltc-checklist-panel").style.display = "none";
+      document.getElementById("hero-section").style.display = "block";
+      document.getElementById("assessment-grid").style.display = "grid";
+
+      const btn = document.getElementById("submit-btn");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Submit & View PA LTC Checklist";
+      }
+
       const formCard = document.getElementById("intake-form-card");
       formCard.style.display = "block";
       formCard.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function returnToMain() {
+      document.getElementById("ltc-checklist-panel").style.display = "none";
+      document.getElementById("intake-form-card").style.display = "none";
+      document.getElementById("hero-section").style.display = "block";
+      document.getElementById("assessment-grid").style.display = "grid";
+
+      const btn = document.getElementById("submit-btn");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Submit & View PA LTC Checklist";
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function renderChecklist() {
@@ -482,9 +595,9 @@
           }
 
           if (success) {
-            document.getElementById("main-grid").style.display = "none";
+            document.getElementById("assessment-grid").style.display = "none";
             document.getElementById("intake-form-card").style.display = "none";
-            document.querySelector(".hero").style.display = "none";
+            document.getElementById("hero-section").style.display = "none";
             
             const panel = document.getElementById("ltc-checklist-panel");
             panel.style.display = "block";
